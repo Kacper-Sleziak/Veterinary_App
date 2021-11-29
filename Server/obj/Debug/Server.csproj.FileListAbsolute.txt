@@ -1,0 +1,2 @@
+C:\Users\User\Desktop\Repos\Veterinary_App\Server\obj\Debug\Server.csprojAssemblyReference.cache
+C:\Users\User\Desktop\Repos\Veterinary_App\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
