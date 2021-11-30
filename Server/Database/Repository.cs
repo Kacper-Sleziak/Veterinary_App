@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace Server.Database
 {
@@ -45,26 +46,29 @@ namespace Server.Database
                     // Insert personal data
                     string queryInsertPersonalData =
                         "INSERT INTO PersonalData " +
-                        $"VALUES ('{firstName}', '{lastName}', {birthday}, '{email}, {phone});";
+                        $"VALUES ('{firstName}', '{lastName}', '{birthday.ToString("yyyy-MM-dd")}', {phone}, '{email}');";
                     command = new SqlCommand(queryInsertPersonalData, _connection);
+                    command.Transaction = transaction;
                     command.ExecuteNonQuery();
                     // Get id of new personal data
                     string queryGetPersonalDataId =
                         "SELECT MAX(Id) " +
                         "FROM PersonalData;";
                     command = new SqlCommand(queryGetPersonalDataId, _connection);
+                    command.Transaction = transaction;
                     int personalDataId = (int) command.ExecuteScalar();
                     // Insert credentials
                     string queryInsertCredentials =
                         "INSERT INTO Credentials " +
                         $"VALUES ('{login}', '{password}', {personalDataId});";
                     command = new SqlCommand(queryInsertCredentials, _connection);
+                    command.Transaction = transaction;
                     command.ExecuteNonQuery();
 
                     // Attempt to commit the transaction.
                     transaction.Commit();
                     Console.WriteLine("Both records are written to database.");
-                    return false;
+                    return true;
                 }
                 catch (Exception ex)
                 {
