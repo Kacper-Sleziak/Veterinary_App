@@ -32,6 +32,7 @@ namespace Server.Database
 
                 SqlCommand command = new SqlCommand(queryGetLogin, _connection);
                 int foundLogin = (int) command.ExecuteScalar();
+                
                 // If given login occur in database return false and end method
                 if (foundLogin != 0)
                 {
@@ -40,7 +41,7 @@ namespace Server.Database
                 }
 
 
-                SqlTransaction transaction = _connection.BeginTransaction("SampleTransaction");
+                SqlTransaction transaction = _connection.BeginTransaction("RegisterTransaction");
                 try
                 {
                     // Insert personal data
@@ -50,6 +51,7 @@ namespace Server.Database
                     command = new SqlCommand(queryInsertPersonalData, _connection);
                     command.Transaction = transaction;
                     command.ExecuteNonQuery();
+                    
                     // Get id of new personal data
                     string queryGetPersonalDataId =
                         "SELECT MAX(Id) " +
@@ -57,6 +59,7 @@ namespace Server.Database
                     command = new SqlCommand(queryGetPersonalDataId, _connection);
                     command.Transaction = transaction;
                     int personalDataId = (int) command.ExecuteScalar();
+                    
                     // Insert credentials
                     string queryInsertCredentials =
                         "INSERT INTO Credentials " +
