@@ -229,5 +229,30 @@ namespace Server.Database
             }
 
         }
+
+        /// <summary>
+        /// A method that allows you to check if user with given PersonalDataId is employee.
+        /// </summary>
+        /// <param name="personalDataId"></param>
+        /// <returns>JobName if user is employee, "użytkownik" else</returns>
+        public string IsEmployee(int personalDataId)
+        {
+            using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
+            {
+                string isEmployeeQuery = "SELECT COUNT(*) " +
+                                         "FROM Employees " +
+                                         $"WHERE PersonalDataId = {personalDataId};";
+                SqlCommand command = new SqlCommand(isEmployeeQuery, _connection);
+                int foundEmployee = (int) command.ExecuteScalar();
+                if (foundEmployee < 1)
+                    return "użytkownik";
+                isEmployeeQuery = "SELECT JobName " +
+                                  "FROM Employees " +
+                                  $"WHERE PersonalDataId='{personalDataId}';";
+                command = new SqlCommand(isEmployeeQuery, _connection);
+                string jobName = command.ExecuteScalar().ToString();
+                return jobName;
+            }
+        }
     }
 }
