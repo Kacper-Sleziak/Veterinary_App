@@ -169,7 +169,7 @@ namespace Server.Database
                     string queryInsertEmployee =
                         "INSERT INTO Employees " +
                         $"VALUES ('{personalDataId}', '{jobName}');";
-                    command = new SqlCommand(queryInsertCredentials, _connection);
+                    command = new SqlCommand(queryInsertEmployee, _connection);
                     command.Transaction = transaction;
                     command.ExecuteNonQuery();
 
