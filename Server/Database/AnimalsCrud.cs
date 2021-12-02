@@ -28,7 +28,7 @@ namespace Server.Database
         }
 
         //Change data animal data by animal's id
-        public void ChangeAnimalData(string newName, string newWeight, string animalId)
+        public void ChangeAnimalData(string newName, float newWeight, string newSpieces, int newOwnerId , string animalId)
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
@@ -36,6 +36,8 @@ namespace Server.Database
                 string changeAnimalNameQuery = "UPDATE Animals " +
                                                $"SET Name =   '{newName}' "   +
                                                $",Weight = '{newWeight}' " +
+                                               $",Spiecies = '{newSpieces}" +
+                                               $",OwnerId = '{newOwnerId}" +
                                                $"Where Id =   '{animalId}';";
 
                 SqlCommand commandChangeAnimalName = new SqlCommand(changeAnimalNameQuery, _connection);
