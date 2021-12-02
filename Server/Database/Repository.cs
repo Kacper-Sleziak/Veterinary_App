@@ -11,17 +11,23 @@ namespace Server.Database
     class Repository
     {
         // A variable that allows you to connect to database
-        private readonly SqlConnection _connection = new SqlConnection(Properties.Resources.ConnectionString);
-        
+        private SqlConnection _connection = new SqlConnection(Properties.Resources.ConnectionString);
+
         /// <summary>
         /// A method that allows you to register new user if login wasn't used yet
         /// </summary>
         /// <param name="login"></param>
         /// <param name="password"></param>
-        /// <returns></returns>
-        public bool RegisterUser(string login, string password, string firstName, string lastName, DateTime birthday, string email, int phone)
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="birthday"></param>
+        /// <param name="email"></param>
+        /// <param name="phone"></param>
+        /// <returns>true if user was registered successfully, false else</returns>
+        public bool RegisterUser(string login, string password, string firstName, string lastName, DateTime birthday,
+            string email, int phone)
         {
-            using (_connection)
+            using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
                 _connection.Open();
 
@@ -32,7 +38,7 @@ namespace Server.Database
 
                 SqlCommand command = new SqlCommand(queryGetLogin, _connection);
                 int foundLogin = (int) command.ExecuteScalar();
-                
+
                 // If given login occur in database return false and end method
                 if (foundLogin != 0)
                 {
@@ -51,7 +57,7 @@ namespace Server.Database
                     command = new SqlCommand(queryInsertPersonalData, _connection);
                     command.Transaction = transaction;
                     command.ExecuteNonQuery();
-                    
+
                     // Get id of new personal data
                     string queryGetPersonalDataId =
                         "SELECT MAX(Id) " +
@@ -59,7 +65,7 @@ namespace Server.Database
                     command = new SqlCommand(queryGetPersonalDataId, _connection);
                     command.Transaction = transaction;
                     int personalDataId = (int) command.ExecuteScalar();
-                    
+
                     // Insert credentials
                     string queryInsertCredentials =
                         "INSERT INTO Credentials " +
