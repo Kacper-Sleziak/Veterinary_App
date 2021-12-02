@@ -168,7 +168,7 @@ namespace Server.Database
                     // Insert Employee
                     string queryInsertEmployee =
                         "INSERT INTO Employees " +
-                        $"VALUES ('{personalDataId}', '{jobName}');";
+                        $"VALUES ('{jobName}', '{personalDataId}');";
                     command = new SqlCommand(queryInsertEmployee, _connection);
                     command.Transaction = transaction;
                     command.ExecuteNonQuery();
