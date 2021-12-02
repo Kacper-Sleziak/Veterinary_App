@@ -14,7 +14,7 @@ namespace Server
         public static Repository _repository = new Repository();
         static void Main()
         {
-            Console.Write(_repository.RegisterUser("Adminator", "Adminarski", "Adam", "Adaasdmski", new DateTime(2000, 11, 15), "aaa@o2.pl", 123456789));
+            Console.Write(_repository.Register("Adminator", "Adminarski", "Adam", "Adaasdmski", new DateTime(2000, 11, 15), "aaa@o2.pl", 123456789));
             Console.Write(_repository.Login("Adminatorek", "Adminarski").ToString());
             Console.Read();
         }

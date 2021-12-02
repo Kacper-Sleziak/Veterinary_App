@@ -24,7 +24,7 @@ namespace Server.Database
         /// <param name="email"></param>
         /// <param name="phone"></param>
         /// <returns>true if user was registered successfully, false else</returns>
-        public bool RegisterUser(string login, string password, string firstName, string lastName, DateTime birthday,
+        public bool Register(string login, string password, string firstName, string lastName, DateTime birthday,
             string email, int phone)
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
