@@ -1,2 +1,11 @@
 C:\Users\User\Desktop\Repos\Veterinary_App\Server\obj\Debug\Server.csprojAssemblyReference.cache
 C:\Users\User\Desktop\Repos\Veterinary_App\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\bin\Debug\Server.exe.config
+C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\bin\Debug\Server.exe
+C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\bin\Debug\Server.pdb
+C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\obj\Debug\Server.csproj.AssemblyReference.cache
+C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\obj\Debug\Server.Properties.Resources.resources
+C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\obj\Debug\Server.csproj.GenerateResource.cache
+C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\obj\Debug\Server.exe
+C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\obj\Debug\Server.pdb
