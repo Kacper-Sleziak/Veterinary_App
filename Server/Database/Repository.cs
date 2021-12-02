@@ -102,5 +102,33 @@ namespace Server.Database
                 }
             }
         }
+
+        /// <summary>
+        /// A method that allows you to check if user entered correct credentials.
+        /// </summary>
+        /// <param name="login"></param>
+        /// <param name="password"></param>
+        /// <returns>PersonalDataId if user exist, -1 else</returns>
+        public int Login(string login, string password)
+        {
+            using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
+            {
+                _connection.Open();
+                string loginQuery = "SELECT COUNT(*) " +
+                                    "FROM Credentials " +
+                                    $"WHERE Login='{login}' AND Password='{password}';";
+                SqlCommand command = new SqlCommand(loginQuery, _connection);
+                int foundCredentials = (int)command.ExecuteScalar();
+                if (foundCredentials < 1)
+                    return -1;
+                loginQuery = "SELECT PersonalDataId " +
+                             "FROM Credentials " +
+                             $"WHERE Login='{login}' AND Password='{password}';";
+                command = new SqlCommand(loginQuery, _connection);
+                int personalDataId = (int)command.ExecuteScalar();
+                return personalDataId;
+            }
+
+        }
     }
 }
