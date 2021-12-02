@@ -36,7 +36,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\AnimalsCrud.cs" />
+    <Compile Include="Database\CredentialsCrud.cs" />
+    <Compile Include="Database\EmployeesCrud.cs" />
+    <Compile Include="Database\FreeTermsCrud.cs" />
+    <Compile Include="Database\OrderCrud.cs" />
+    <Compile Include="Database\OrderedProductsCrud.cs" />
+    <Compile Include="Database\PersonalDataCrud.cs" />
+    <Compile Include="Database\ProductsCrud.cs" />
     <Compile Include="Database\Repository.cs" />
+    <Compile Include="Database\VisitsCrud.cs" />
+    <Compile Include="Database\VisitTypesCrud.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
