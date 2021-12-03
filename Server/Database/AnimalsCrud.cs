@@ -12,13 +12,13 @@ namespace Server.Database
         private SqlConnection _connection = new SqlConnection(Properties.Resources.ConnectionString);
         
         //Get animals by id of owner's personal data
-        public string GetAnimalsOfOwner(string ownerID)
+        public string GetAnimalsOfOwner(int ownerID)
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
                 string getAnimalsQuery = "SELECT * " +
                                           "FROM Animals " +
-                                          $"Where OwnerID = '{ownerID}';";
+                                          $"Where OwnerID = {ownerID};";
 
                 SqlDataAdapter adapter = new SqlDataAdapter(getAnimalsQuery, _connection);
                 DataTable table = new DataTable();
