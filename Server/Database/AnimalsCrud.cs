@@ -31,15 +31,15 @@ namespace Server.Database
         }
 
         //Change data animal data by animal's id
-        public void ChangeAnimalData(string newName, float newWeight, string newSpecies, int newOwnerId , int animalId)
+        public void ChangeAnimalData(int animalId, string newName, string newSpecies, float newWeight ,int newOwnerId)
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
                 
                 string changeAnimalNameQuery = "UPDATE Animals " +
                                                $"SET Name =  '{newName}', "   +
-                                               $"Weight = {newWeight}, " +
                                                $"Species = '{newSpecies}', " +
+                                               $"Weight = {newWeight.ToString().Replace(',','.')}, " +
                                                $"OwnerId = {newOwnerId} " +
                                                $"Where Id =   {animalId};";
                 _connection.Open();
@@ -72,7 +72,7 @@ namespace Server.Database
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
                 string addAnimalQuery = "INSERT INTO Animals " +
-                                        $"VALUES ('{name}', '{species}', {weight}, {ownerId});";
+                                        $"VALUES ('{name}', '{species}', {weight.ToString().Replace(',','.')}, {ownerId});";
 
                 _connection.Open();
                 SqlCommand addAnimalCommand = new SqlCommand(addAnimalQuery, _connection);
