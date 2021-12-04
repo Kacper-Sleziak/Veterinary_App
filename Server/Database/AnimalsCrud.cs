@@ -39,7 +39,7 @@ namespace Server.Database
                 string changeAnimalNameQuery = "UPDATE Animals " +
                                                $"SET Name =  '{newName}', "   +
                                                $"Species = '{newSpecies}', " +
-                                               $"Weight = {newWeight.ToString().Replace(',','.')}, " +
+                                               $"Weight = {newWeight.ToString(System.Globalization.CultureInfo.InvariantCulture)}, " +
                                                $"OwnerId = {newOwnerId} " +
                                                $"Where Id =   {animalId};";
                 _connection.Open();
