@@ -72,7 +72,7 @@ namespace Server.Database
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
                 string addAnimalQuery = "INSERT INTO Animals " +
-                                        $"VALUES ('{name}', '{species}', {weight.ToString().Replace(',','.')}, {ownerId});";
+                                        $"VALUES ('{name}', '{species}', {weight.ToString(System.Globalization.CultureInfo.InvariantCulture)}, {ownerId});";
 
                 _connection.Open();
                 SqlCommand addAnimalCommand = new SqlCommand(addAnimalQuery, _connection);
