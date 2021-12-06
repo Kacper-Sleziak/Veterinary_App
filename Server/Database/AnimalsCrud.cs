@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -20,16 +21,24 @@ namespace Server.Database
 
                 SqlDataAdapter adapter = new SqlDataAdapter(getAnimalsQuery, _connection);
                 DataTable table = new DataTable();
-                adapter.Fill(table);
 
-                string temp = JsonConvert.SerializeObject(table);
-
-                return temp;
+                try
+                {
+                    adapter.Fill(table);
+                    string temp = JsonConvert.SerializeObject(table);
+                    return temp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+                    return "";
+                }
             }
         }
 
         //Change data animal data by animal's id
-        public void ChangeAnimalData(int animalId, string newName, string newSpecies, float newWeight ,int newOwnerId)
+        public bool ChangeAnimalData(int animalId, string newName, string newSpecies, float newWeight ,int newOwnerId)
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
@@ -42,13 +51,23 @@ namespace Server.Database
                                                $"Where Id =   {animalId};";
                 _connection.Open();
                 SqlCommand commandChangeAnimalName = new SqlCommand(changeAnimalNameQuery, _connection);
-                commandChangeAnimalName.ExecuteNonQuery();
-
+                
+                try
+                {
+                    commandChangeAnimalName.ExecuteNonQuery();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+                    return false;
+                }
             }
         }
 
         //Delete animal from data base by animal's id
-        public void DeleteAnimal(int animalId)
+        public bool DeleteAnimal(int animalId)
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
@@ -57,15 +76,28 @@ namespace Server.Database
 
                 _connection.Open();
                 SqlCommand deleteAnimalCommand = new SqlCommand(deleteAnimalQuery, _connection);
-                deleteAnimalCommand.ExecuteNonQuery();
+
+                try
+                {
+                    deleteAnimalCommand.ExecuteNonQuery();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+                    return false;
+                }
+
             }
+
         }
 
         //Add new animals to data base
         
         //Problem with using float typical float number as a parameter of weight for example 20.1,
         //Normal int passed as a weight is working correctly 
-        public void AddNewAnimal(string name, string species, float weight, int ownerId)
+        public bool AddNewAnimal(string name, string species, float weight, int ownerId)
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
@@ -74,7 +106,18 @@ namespace Server.Database
 
                 _connection.Open();
                 SqlCommand addAnimalCommand = new SqlCommand(addAnimalQuery, _connection);
-                addAnimalCommand.ExecuteNonQuery();
+
+                try
+                {
+                    addAnimalCommand.ExecuteNonQuery();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+                    return false;
+                }
             }
         }
     }
