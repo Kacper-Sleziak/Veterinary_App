@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 
 namespace Server.Database
 {
     /// <summary>
     /// A class that allows you to query a database 
     /// </summary>
-    class Repository
+    class Transactions
     {
         // A variable that allows you to connect to database
         private SqlConnection _connection = new SqlConnection(Properties.Resources.ConnectionString);
@@ -27,13 +29,12 @@ namespace Server.Database
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
-                _connection.Open();
-
+                CredentialsCrud credentrals = new CredentialsCrud();
+                PersonalDataCrud personalData = new PersonalDataCrud();
                 string queryGetLogin =
                     "SELECT COUNT(*) " +
                     "FROM Credentials " +
                     $"WHERE Login = '{login}';";
-
                 SqlCommand command = new SqlCommand(queryGetLogin, _connection);
                 int foundLogin = (int) command.ExecuteScalar();
 
@@ -55,7 +56,6 @@ namespace Server.Database
                     command = new SqlCommand(queryInsertPersonalData, _connection);
                     command.Transaction = transaction;
                     command.ExecuteNonQuery();
-
                     // Get id of new personal data
                     string queryGetPersonalDataId =
                         "SELECT MAX(Id) " +
@@ -250,6 +250,83 @@ namespace Server.Database
                 command = new SqlCommand(isEmployeeQuery, _connection);
                 string jobName = command.ExecuteScalar().ToString();
                 return jobName;
+            }
+        }
+
+        public bool addNewVisit(int freeTermId, int visitTypeId, int animalId, int vetId)
+        {
+            using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
+            {
+                string getVisitDuration = "SELECT Duration " +
+                                          "FROM VisitTypes " +
+                                          $"WHERE Id = {visitTypeId};";
+                SqlCommand command = new SqlCommand(getVisitDuration, _connection);
+                int duration = (int)command.ExecuteScalar();
+                bool isFree = true;
+                for (int i = freeTermId; i < freeTermId + duration; i++)
+                {
+                    string checkAvailability  = "SELECT Status " +
+                                                "FROM FreeTerms " +
+                                                $"WHERE Id = {i};";
+                    command = new SqlCommand(checkAvailability, _connection);
+                    if (!(bool) command.ExecuteScalar())
+                        isFree = false;
+                }
+
+                if (!isFree)
+                    return false;
+
+                SqlTransaction transaction = _connection.BeginTransaction("VisitTransaction");
+                try
+                {
+                    for (int i = freeTermId; i < freeTermId + duration; i++)
+                    {
+                        string setAvailability = "Update FreeTerms " +
+                                                 $"Set Status = {false}" +
+                                                 $"WHERE Id = {i};";
+                        command = new SqlCommand(setAvailability, _connection);
+                        command.Transaction = transaction;
+                        command.ExecuteNonQuery();
+                    }
+                    string getDate = "SELECT Date " + 
+                                     "FROM FreeTerms " +
+                                     $"WHERE Id = {freeTermId};";
+                    command = new SqlCommand(getDate, _connection);
+                    command.Transaction = transaction;
+                    DateTime date = (DateTime) command.ExecuteScalar();
+
+                    string addVisit = "INSERT INTO Visits " +
+                                      $"VALUES ('{date}',{visitTypeId},{animalId}, {vetId});";
+                    command = new SqlCommand(addVisit, _connection);
+                    command.Transaction = transaction;
+                    command.ExecuteNonQuery();
+
+                    // Attempt to commit the transaction.
+                    transaction.Commit();
+                    Console.WriteLine("Both records are written to database.");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+
+                    // Attempt to roll back the transaction.
+                    try
+                    {
+                        transaction.Rollback();
+                        return false;
+                    }
+                    catch (Exception ex2)
+                    {
+                        // This catch block will handle any errors that may have occurred
+                        // on the server that would cause the rollback to fail, such as
+                        // a closed connection.
+                        Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
+                        Console.WriteLine("  Message: {0}", ex2.Message);
+                        return false;
+                    }
+                }
             }
         }
     }
