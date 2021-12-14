@@ -1,4 +1,9 @@
-﻿namespace Server.Database
+﻿using System;
+using System.Data;
+using System.Data.SqlClient;
+using Newtonsoft.Json;
+
+namespace Server.Database
 {
     class VisitsCrud
     {
@@ -28,13 +33,63 @@
             }
         }
 
-        public string GetAllVisits()
+        public string GetVisits()
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
                 _connection.Open();
                 string getVisitsQuery = "SELECT * " +
                                            "FROM Visits;";
+                SqlDataAdapter adapter = new SqlDataAdapter(getVisitsQuery, _connection);
+                DataTable table = new DataTable();
+                try
+                {
+                    adapter.Fill(table);
+                    string temp = JsonConvert.SerializeObject(table);
+                    return temp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+                    return "";
+                }
+            }
+        }
+
+        public string GetVetVisits(int id)
+        {
+            using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
+            {
+                _connection.Open();
+                string getVisitsQuery = "SELECT * " +
+                                        "FROM Visits " +
+                                        $"WHERE VetId = {id};";
+                SqlDataAdapter adapter = new SqlDataAdapter(getVisitsQuery, _connection);
+                DataTable table = new DataTable();
+                try
+                {
+                    adapter.Fill(table);
+                    string temp = JsonConvert.SerializeObject(table);
+                    return temp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+                    return "";
+                }
+            }
+        }
+
+        public string GetAnimalVisits(int id)
+        {
+            using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
+            {
+                _connection.Open();
+                string getVisitsQuery = "SELECT * " +
+                                        "FROM Visits " +
+                                        $"WHERE AnimalId = {id};";
                 SqlDataAdapter adapter = new SqlDataAdapter(getVisitsQuery, _connection);
                 DataTable table = new DataTable();
                 try
@@ -80,7 +135,7 @@
         }
 
         //Function delete visit from database
-        public bool DeleteEmployee(int id)
+        public bool DeleteVisit(int id)
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
