@@ -28,6 +28,30 @@
             }
         }
 
+        public string GetAllOrderedProducts()
+        {
+            using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
+            {
+                _connection.Open();
+                string getOrderedProductssQuery = "SELECT * " +
+                                           "FROM OrderedProducts;";
+                SqlDataAdapter adapter = new SqlDataAdapter(getOrderedProductssQuery, _connection);
+                DataTable table = new DataTable();
+                try
+                {
+                    adapter.Fill(table);
+                    string temp = JsonConvert.SerializeObject(table);
+                    return temp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+                    return "";
+                }
+            }
+        }
+
         //Function update ordered product
         public bool UpdateOrderedProduct(int id, int productId, int amount, int orderId)
         {
