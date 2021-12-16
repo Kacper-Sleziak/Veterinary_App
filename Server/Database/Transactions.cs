@@ -299,7 +299,7 @@ namespace Server.Database
                     DateTime date = (DateTime) command.ExecuteScalar();
 
                     string addVisit = "INSERT INTO Visits " +
-                                      $"VALUES ('{date}',{visitTypeId},{animalId}, {vetId});";
+                                      $"VALUES ('{date:u}',{visitTypeId},{animalId}, {vetId});";
                     command = new SqlCommand(addVisit, _connection);
                     command.Transaction = transaction;
                     command.ExecuteNonQuery();
@@ -361,7 +361,7 @@ namespace Server.Database
                 {
                     string updateFreeTerms = "UPDATE FreeTerms " +
                                              "SET Status = 0 " +
-                                             $"WHERE Date >= {visitStartDate} and Date < {visitEndDate};";
+                                             $"WHERE Date >= {visitStartDate:u} and Date < {visitEndDate:u};";
 
                     command = new SqlCommand(updateFreeTerms, _connection);
                     command.Transaction = transaction;
@@ -424,7 +424,7 @@ namespace Server.Database
 
                     string getOrderQuery = "SELECT OrderId " +
                                       "FROM Orders " +
-                                      $"WHERE OwnerId = {ownerId} and Date = {date};";
+                                      $"WHERE OwnerId = {ownerId} and Date = {date:u};";
 
                     command = new SqlCommand(getOrderQuery, _connection);
                     command.Transaction = transaction;
@@ -485,6 +485,28 @@ namespace Server.Database
                         Console.WriteLine("  Message: {0}", ex2.Message);
                         return false;
                     }
+                }
+            }
+        }
+
+        public void ReloadFreeTerms()
+        {
+            using (_connection)
+            {
+                _connection.Open();
+                DateTime actualDate = DateTime.Now;
+
+                String deleteFreeTermsQuery = "DELETE FreeTerms " +
+                                              $"WHERE Date <= {actualDate:u}";
+                SqlCommand command = new SqlCommand(deleteFreeTermsQuery, _connection);
+                try
+                {
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
                 }
             }
         }
