@@ -34,7 +34,7 @@ namespace Server.Database
             }
         }
 
-        public string GetFreeTerm(int VetId)
+        public string GetFreeTerms(int VetId)
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {

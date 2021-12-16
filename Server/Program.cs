@@ -135,62 +135,78 @@ namespace Server
                     char[] separator = { '(', ',', ')' };
                     var function = content.Split(separator);
 
-                    switch (function[0])
+                    try
                     {
-                        case "Login":
-                            result = _repository.Login(function[1], function[2]).ToString();
-                            break;
-                        //Register for client
-                        case "Register" when result.Length == 9:
-                            result = _repository.Register(function[1], function[2], function[3], function[4],
-                                DateTime.Parse(function[5]), function[6], int.Parse(function[7])).ToString();
-                            break;
-                        case "Register":
+                        switch (function[0])
                         {
-                            if (result.Length == 10)
-                            {
+                            case "Login":
+                                result = _repository.Login(function[1], function[2]).ToString();
+                                break;
+                            //Register for client
+                            case "Register" when result.Length == 9:
                                 result = _repository.Register(function[1], function[2], function[3], function[4],
-                                    DateTime.Parse(function[5]), function[6], int.Parse(function[7]), function[8]).ToString();
+                                    DateTime.Parse(function[5]), function[6], int.Parse(function[7])).ToString();
+                                break;
+                            case "Register":
+                            {
+                                if (result.Length == 10)
+                                {
+                                    result = _repository.Register(function[1], function[2], function[3], function[4],
+                                            DateTime.Parse(function[5]), function[6], int.Parse(function[7]),
+                                            function[8])
+                                        .ToString();
+                                }
+
+                                break;
                             }
-
-                            break;
+                            case "GetPersonalData":
+                                result = _personalData.GetPersonalData(int.Parse(function[1]));
+                                break;
+                            //Klient przekazuje listę w postaci [el1;el2;el3;el4...]
+                            case "AddNewVisit":
+                                result = _repository.addNewVisit(int.Parse(function[1]), int.Parse(function[2]),
+                                    int.Parse(function[3]), int.Parse(function[4])).ToString();
+                                break;
+                            case "Order":
+                            {
+                                char[] listSeparator = {'[', ';', ']'};
+                                var ProductId =
+                                    function[9].Split(listSeparator).ToList().ConvertAll(input => int.Parse(input));
+                                var ProductAmount =
+                                    function[10].Split(listSeparator).ToList().ConvertAll(input => int.Parse(input));
+                                result = _repository.Order(int.Parse(function[1]), DateTime.Parse(function[2]),
+                                    function[3], int.Parse(function[4]), function[5],
+                                    function[6], function[7], function[8], ProductId, ProductAmount).ToString();
+                                break;
+                            }
+                            case "CancelVisit":
+                                result = _repository.CancelVisit(int.Parse(function[1])).ToString();
+                                break;
+                            case "ChangePassword":
+                                result = _credentials.UpdateCredentials(int.Parse(function[1]), function[2],
+                                    function[3],
+                                    int.Parse(function[4])).ToString();
+                                break;
+                            case "GetAnimals":
+                                result = _animals.GetAnimalsOfOwner(int.Parse(function[1]));
+                                break;
+                            case "GetVisitsOfAnimal":
+                                result = _Visits.GetAnimalVisits(int.Parse(function[1])).ToString();
+                                break;
+                            case "GetVetVisits":
+                                result = _Visits.GetVetVisits(int.Parse(function[1])).ToString();
+                                break;
+                            case "GetFreeTerms":
+                                result = _FreeTerms.GetFreeTerms(int.Parse(function[1]));
+                                break;
                         }
-                        case "GetPersonalData":
-                            result = _personalData.GetPersonalData(int.Parse(function[1]));
-                            break;
-                        //Klient przekazuje listę w postaci [el1;el2;el3;el4...]
-                        case "AddNewVisit":
-                            result = _repository.addNewVisit(int.Parse(function[1]), int.Parse(function[2]), int.Parse(function[3]), int.Parse(function[4])).ToString();
-                            break;
-                        case "Order":
-                        {
-                            char[] listSeparator = { '[', ';', ']' };
-                            var ProductId =
-                                function[9].Split(listSeparator).ToList().ConvertAll(input => int.Parse(input));
-                            var ProductAmount =
-                                function[10].Split(listSeparator).ToList().ConvertAll(input => int.Parse(input));
-                            result = _repository.Order(int.Parse(function[1]), DateTime.Parse(function[2]), function[3], int.Parse(function[4]), function[5],
-                                function[6], function[7], function[8], ProductId, ProductAmount).ToString();
-                            break;
-                        }
-                        case "CancelVisit":
-                            result = _repository.CancelVisit(int.Parse(function[1])).ToString();
-                            break;
-                        case "ChangePassword":
-                            result = _credentials.UpdateCredentials(int.Parse(function[1]), function[2], function[3],
-                                int.Parse(function[4])).ToString();
-                            break;
-                        case "GetAnimals":
-                            result = _animals.GetAnimalsOfOwner(int.Parse(function[1]));
-                            break;
-                        case "GetVisitsOfAnimal":
-                            result = _Visits.GetAnimalVisits(int.Parse(function[1])).ToString();
-                            break;
-                        case "GetVetVisits":
-                            result = _Visits.GetVetVisits(int.Parse(function[1])).ToString();
-                            break;
                     }
-
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                        Console.WriteLine("  Message: {0}", ex.Message);
+                        result = $"Commit Exception Type: {ex.GetType()} Message: {ex.Message}";
+                    }
 
                     result += "<EOF>";
 
