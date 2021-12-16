@@ -34,14 +34,14 @@ namespace Server.Database
             }
         }
 
-        public string GetFreeTerm(int id)
+        public string GetFreeTerm(int VetId)
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
                 _connection.Open();
                 string getFreeTermQuery = "SELECT * " +
                                              "FROM FreeTerms " +
-                                             $"WHERE Id = {id};";
+                                             $"WHERE EmployeeId = {VetId};";
                 SqlDataAdapter adapter = new SqlDataAdapter(getFreeTermQuery, _connection);
                 DataTable table = new DataTable();
                 try

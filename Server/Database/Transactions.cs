@@ -336,7 +336,8 @@ namespace Server.Database
             {
                 string getVisitDuration = "SELECT vt.Duration " +
                                           "FROM VisitTypes vt " +
-                                          $"JOIN Visits v on v.Id = {visitId};";
+                                          "JOIN Visits v ON v.Id " +
+                                          $"WHERE v.Id = {visitId};";
 
                 SqlCommand command = new SqlCommand(getVisitDuration, _connection);
                 int duration = (int)command.ExecuteScalar();
@@ -344,12 +345,12 @@ namespace Server.Database
 
                 string getVisitDate = "SELECT Date " +
                                       "FROM Visits " +
-                                      $"WHERE Id = {visitId}"
+                                      $"WHERE Id = {visitId}";
                 
-                SqlCommand command = new SqlCommand(getVisitDate, _connection);
+                command = new SqlCommand(getVisitDate, _connection);
 
                 DateTime visitStartDate = (DateTime)command.ExecuteScalar();
-                DateTime visitEndDate = visitStartDate.AddMinutes(double(duration));
+                DateTime visitEndDate = visitStartDate.AddMinutes((double)duration);
 
                 SqlTransaction transaction = _connection.BeginTransaction("CanelVisitTransaction");
 
