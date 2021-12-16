@@ -122,6 +122,7 @@ namespace Server
                     content = state.sb.ToString();
                     if (content.IndexOf("<EOF>") > -1)
                     {
+                        String result = "<EOF>";
                         // All the data has been read from the
                         // client. Display it on the console.  
                         Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
@@ -134,13 +135,14 @@ namespace Server
 
                         if (function[0] == "Login")
                         {
-                            _repository.Login(function[1], function[2]);
+                            result = _repository.Login(function[1], function[2]).ToString();
+                            result += "<EOF>";
                         }
 
                         ////////////////////////////////////////
 
                         // Echo the data back to the client.
-                        Send(handler, content);
+                        Send(handler, result);
                     }
                     else
                     {
