@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Runtime.InteropServices;
@@ -376,6 +377,91 @@ namespace Server.Database
                     // Attempt to commit the transaction.
                     transaction.Commit();
                     Console.WriteLine("Both records were changed in database.");
+                    return true;
+                }
+
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+
+                    // Attempt to roll back the transaction.
+                    try
+                    {
+                        transaction.Rollback();
+                        return false;
+                    }
+                    catch (Exception ex2)
+                    {
+                        // This catch block will handle any errors that may have occurred
+                        // on the server that would cause the rollback to fail, such as
+                        // a closed connection.
+                        Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
+                        Console.WriteLine("  Message: {0}", ex2.Message);
+                        return false;
+                    }
+                }
+            }
+        }
+
+        public bool Order(int ownerId, DateTime date, string city, int zipCode, string street, string delivery, string apartment, string status, List<int> productId, List<int> productAmount)
+        {
+            using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
+            {
+                string createOrderQuery = "INSERT INTO Orders " +
+                                          $"VALUES {ownerId}, {date}, '{city}', {zipCode}, '{street}, '{delivery}', '{apartment}', '{status}';";
+
+
+                SqlTransaction transaction = _connection.BeginTransaction("Order");
+
+                try
+                {
+                    SqlCommand command = new SqlCommand(createOrderQuery, _connection);
+                    
+                    int amountOfOrderedProducts = productId.Count;
+                    command.Transaction = transaction;
+                    command.ExecuteNonQuery();
+
+                    string getOrderQuery = "SELECT OrderId " +
+                                      "FROM Orders " +
+                                      $"WHERE OwnerId = {ownerId} and Date = {date};";
+
+                    command = new SqlCommand(getOrderQuery, _connection);
+                    command.Transaction = transaction;
+                    
+                    int orderId = (int)command.ExecuteScalar();
+
+                    for (var i = 0; i < amountOfOrderedProducts; i++)
+                    {
+                        string createOrderedProductQuery = "INSERT Into OrderedProducts " +
+                                                           $"VALUES {productId[i]} {productAmount[i]} {orderId};";
+                        
+                        command = new SqlCommand(createOrderedProductQuery, _connection);
+                        command.Transaction = transaction;
+                        command.ExecuteNonQuery();
+
+                        string getAmountOfProductQuery = "SELECT Amount " +
+                                                    "FROM Products " +
+                                                    $"WHERE id = {productId[i]};";
+                        
+                        command = new SqlCommand(getAmountOfProductQuery, _connection);
+                        command.Transaction = transaction;
+                        int amountOfProduct = (int) command.ExecuteScalar();
+                        
+                        amountOfProduct -= productAmount[i];
+
+                        string updateProductsQuery = "UPDATE Products " +
+                                                     $"SET Amount = {amountOfProduct} " + 
+                                                     $"WHERE id = {productId[i]};";
+                        
+                        command = new SqlCommand(updateProductsQuery, _connection);
+                        command.Transaction = transaction;
+                        command.ExecuteNonQuery();
+
+                        
+                    }
+
+                    Console.WriteLine("All records were changed in datanase");
                     return true;
                 }
 
