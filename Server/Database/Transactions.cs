@@ -50,6 +50,7 @@ namespace Server.Database
                 SqlTransaction transaction = _connection.BeginTransaction("RegisterTransaction");
                 try
                 {
+                    _connection.Open();
                     // Insert personal data
                     string queryInsertPersonalData =
                         "INSERT INTO PersonalData " +
