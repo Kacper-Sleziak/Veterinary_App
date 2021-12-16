@@ -126,24 +126,15 @@ namespace Server
                         // client. Display it on the console.  
                         Console.WriteLine("Read {0} bytes from socket. \n Data : {1}",
                             content.Length, content);
-                        
+
                         ////////////////////////////////////////
                         //tutaj ify , jaki content (dane od klienta) odpowiada jakiej funkcji i co wysłać
+                        char[] spearator = { '(', ',', ')' };
+                        var function = content.Split(spearator);
 
-                        var content = content.Split({ "(" ,  ") <EOF>",  ","})
-
-                        if (content[0] == "Login")
+                        if (function[0] == "Login")
                         {
-                            if (content.Length == 3)
-                            {
-                                _repository.Login(content[1], content[2])
-                            }
-                            
-                            else if (content.Length == 3)
-                            {
-                                _repository.Login(content[1], content[2], content[3])
-                            }
-                            
+                            _repository.Login(function[1], function[2]);
                         }
 
                         ////////////////////////////////////////
