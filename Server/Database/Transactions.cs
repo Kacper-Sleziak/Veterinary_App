@@ -350,7 +350,7 @@ namespace Server.Database
                 command = new SqlCommand(getVisitDate, _connection);
 
                 DateTime visitStartDate = (DateTime)command.ExecuteScalar();
-                DateTime visitEndDate = visitStartDate.AddMinutes((double)duration);
+                DateTime visitEndDate = visitStartDate.AddMinutes((double)duration*1);
 
                 SqlTransaction transaction = _connection.BeginTransaction("CanelVisitTransaction");
 
@@ -358,7 +358,7 @@ namespace Server.Database
                 {
                     string updateFreeTerms = "UPDATE FreeTerms " +
                                              "SET Status = 0 " +
-                                             $"WHERE Date <= {visitStartDate} and Date > {visitEndDate};";
+                                             $"WHERE Date >= {visitStartDate} and Date < {visitEndDate};";
 
                     command = new SqlCommand(updateFreeTerms, _connection);
                     command.Transaction = transaction;
@@ -373,7 +373,7 @@ namespace Server.Database
 
                     // Attempt to commit the transaction.
                     transaction.Commit();
-                    Console.WriteLine("Both records are written to database.");
+                    Console.WriteLine("Both records were changed in database.");
                     return true;
                 }
 

@@ -13,8 +13,8 @@ namespace Server.Database
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
-                //Default status = 1, true in sql
-                int status = 1;
+                //Default status = 0, false in sql
+                int status = 0;
                 
                 _connection.Open();
                 string queryInsertFreeTerm = "INSERT INTO FreeTerms " +
