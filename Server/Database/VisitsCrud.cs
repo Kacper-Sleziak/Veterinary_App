@@ -107,6 +107,33 @@ namespace Server.Database
             }
         }
 
+        public string GetOwnerVisits(int id)
+        {
+            using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
+            {
+                _connection.Open();
+                string getVisitsQuery = "SELECT Visits.* " +
+                                        "FROM Visits " +
+                                        "JOIN Animals ON Animals.Id = Visits.AnimalId " +
+                                        "JOIN PersonalData ON PersonalData.Id = Animals.OwnerId " + 
+                                        $"WHERE PersonalData.Id = {id};";
+                SqlDataAdapter adapter = new SqlDataAdapter(getVisitsQuery, _connection);
+                DataTable table = new DataTable();
+                try
+                {
+                    adapter.Fill(table);
+                    string temp = JsonConvert.SerializeObject(table);
+                    return temp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+                    return "";
+                }
+            }
+        }
+
         //Function update visit
         public bool UpdateVisit(int id, DateTime date, int visitTypeId, int animalId, int vetId)
         {
