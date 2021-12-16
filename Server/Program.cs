@@ -130,6 +130,22 @@ namespace Server
                         ////////////////////////////////////////
                         //tutaj ify , jaki content (dane od klienta) odpowiada jakiej funkcji i co wysłać
 
+                        var content = content.Split({ "(" ,  ") <EOF>",  ","})
+
+                        if (content[0] == "Login")
+                        {
+                            if (content.Length == 3)
+                            {
+                                _repository.Login(content[1], content[2])
+                            }
+                            
+                            else if (content.Length == 3)
+                            {
+                                _repository.Login(content[1], content[2], content[3])
+                            }
+                            
+                        }
+
                         ////////////////////////////////////////
 
                         // Echo the data back to the client.
