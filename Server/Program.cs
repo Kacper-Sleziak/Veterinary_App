@@ -143,13 +143,13 @@ namespace Server
                                 result = _repository.Login(function[1], function[2]).ToString();
                                 break;
                             //Register for client
-                            case "Register" when result.Length == 9:
+                            case "Register" when function.Length == 9:
                                 result = _repository.Register(function[1], function[2], function[3], function[4],
                                     DateTime.Parse(function[5]), function[6], int.Parse(function[7])).ToString();
                                 break;
                             case "Register":
                             {
-                                if (result.Length == 10)
+                                if (function.Length == 10)
                                 {
                                     result = _repository.Register(function[1], function[2], function[3], function[4],
                                             DateTime.Parse(function[5]), function[6], int.Parse(function[7]),
