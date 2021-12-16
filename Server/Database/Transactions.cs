@@ -329,5 +329,75 @@ namespace Server.Database
                 }
             }
         }
+
+        public bool CancelVisit(int visitId)
+        {
+            using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
+            {
+                string getVisitDuration = "SELECT vt.Duration " +
+                                          "FROM VisitTypes vt " +
+                                          $"JOIN Visits v on v.Id = {visitId};";
+
+                SqlCommand command = new SqlCommand(getVisitDuration, _connection);
+                int duration = (int)command.ExecuteScalar();
+
+
+                string getVisitDate = "SELECT Date " +
+                                      "FROM Visits " +
+                                      $"WHERE Id = {visitId}"
+                
+                SqlCommand command = new SqlCommand(getVisitDate, _connection);
+
+                DateTime visitStartDate = (DateTime)command.ExecuteScalar();
+                DateTime visitEndDate = visitStartDate.AddMinutes(double(duration));
+
+                SqlTransaction transaction = _connection.BeginTransaction("CanelVisitTransaction");
+
+                try
+                {
+                    string updateFreeTerms = "UPDATE FreeTerms " +
+                                             "SET Status = 0 " +
+                                             $"WHERE Date <= {visitStartDate} and Date > {visitEndDate};";
+
+                    command = new SqlCommand(updateFreeTerms, _connection);
+                    command.Transaction = transaction;
+                    command.ExecuteNonQuery();
+
+                    string deleteVisitQuery = "DELETE Visits " +
+                                              $"Where Id = {visitId};";
+
+                    command = new SqlCommand(deleteVisitQuery, _connection);
+                    command.Transaction = transaction;
+                    command.ExecuteNonQuery();
+
+                    // Attempt to commit the transaction.
+                    transaction.Commit();
+                    Console.WriteLine("Both records are written to database.");
+                    return true;
+                }
+
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+
+                    // Attempt to roll back the transaction.
+                    try
+                    {
+                        transaction.Rollback();
+                        return false;
+                    }
+                    catch (Exception ex2)
+                    {
+                        // This catch block will handle any errors that may have occurred
+                        // on the server that would cause the rollback to fail, such as
+                        // a closed connection.
+                        Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
+                        Console.WriteLine("  Message: {0}", ex2.Message);
+                        return false;
+                    }
+                }
+            }
+        }
     }
 }
