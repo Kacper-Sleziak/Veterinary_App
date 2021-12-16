@@ -29,6 +29,7 @@ namespace Server.Database
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
+                _connection.Open();
                 CredentialsCrud credentrals = new CredentialsCrud();
                 PersonalDataCrud personalData = new PersonalDataCrud();
                 string queryGetLogin =
