@@ -155,7 +155,12 @@ namespace Server
 
                             
                         }
-
+                        
+                        else if (function[0] == "GetPersonalData")
+                        {
+                            result = _personalData.GetPersonalData(Int32.Parse(function[1]));
+                        }
+                        
                         else if (function[0] == "AddNewVisit")
                         {
                             result = _repository.addNewVisit(Int32.Parse(function[1]), Int32.Parse(function[2]), Int32.Parse(function[3]), Int32.Parse(function[4])).ToString();
@@ -166,10 +171,7 @@ namespace Server
                             result = _repository.CancelVisit(Int32.Parse(function[1])).ToString();             
                         }
 
-                        else if (function[0] == "GetPersonalData")
-                        {
-                            result = _personalData.GetPersonalData(Int32.Parse(function[1])).ToString();
-                        }
+                        
 
                         result += "<EOF>";
 
