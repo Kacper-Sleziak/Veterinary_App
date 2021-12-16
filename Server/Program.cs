@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -11,8 +12,11 @@ namespace Server
     {
         public static Transactions _repository = new Transactions();
         public static PersonalDataCrud _personalData = new PersonalDataCrud();
+        public static CredentialsCrud _credentials = new CredentialsCrud();
         public static AnimalsCrud _animals = new AnimalsCrud();
         public static PersonalDataCrud _products = new PersonalDataCrud();
+        public static FreeTermsCrud _FreeTerms = new FreeTermsCrud();
+        public static VisitsCrud _Visits = new VisitsCrud();
 
         // State object for reading client data asynchronously  
         public class StateObject
@@ -141,12 +145,15 @@ namespace Server
 
                         else if (function[0] == "Register")
                         {
+
+                            //Register for client
                             if (result.Length == 9)
                             {
                                 result = _repository.Register(function[1], function[2], function[3], function[4],
                                  DateTime.Parse(function[5]), function[6], Int32.Parse(function[7])).ToString();
                             }
 
+                            //Register for employe
                             else if (result.Length == 10)
                             {
                                 result = _repository.Register(function[1], function[2], function[3], function[4],
@@ -166,12 +173,40 @@ namespace Server
                             result = _repository.addNewVisit(Int32.Parse(function[1]), Int32.Parse(function[2]), Int32.Parse(function[3]), Int32.Parse(function[4])).ToString();
                         }
 
+
+                        //Klopty z konwertowaniem stringa do listy typu int
+                        else if (function[0] == "Order")
+                        {
+                            result = _repository.Order(Int32.Parse(function[1]), DateTime.Parse(function[2]), function[3], Int32.Parse(function[4]), function[5],
+                                function[6], function[7], function[8], function[9], function[10]).ToString();
+                        }
+
                         else if (function[0] == "CancelVisit")
                         {
                             result = _repository.CancelVisit(Int32.Parse(function[1])).ToString();             
                         }
 
-                        
+                        else if (function[0] == "ChangePassword")
+                        {
+                            result = _credentials.UpdateCredentials(Int32.Parse(function[1]), function[2], function[3],
+                                Int32.Parse(function[4])).ToString();
+                        }
+
+                        else if (function[0] == "GetAnimals")
+                        {
+                            result = _animals.GetAnimalsOfOwner(Int32.Parse(function[1]));
+                        }
+
+                        else if (function[0] == "GetVisitsOfAnimal")
+                        {
+                            result = _Visits.GetAnimalVisits(Int32.Parse(function[1])).ToString();
+                        }
+
+                        else if (function[0] == "GetVetVisits")
+                        {
+                            result = _Visits.GetVetVisits(Int32.Parse(function[1])).ToString();
+                        }
+
 
                         result += "<EOF>";
 
