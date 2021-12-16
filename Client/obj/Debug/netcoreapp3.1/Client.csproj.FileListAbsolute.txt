@@ -4,12 +4,10 @@ C:\Users\User\Desktop\Repos\Veterinary_App\Client\bin\Debug\netcoreapp3.1\Client
 C:\Users\User\Desktop\Repos\Veterinary_App\Client\bin\Debug\netcoreapp3.1\Client.runtimeconfig.dev.json
 C:\Users\User\Desktop\Repos\Veterinary_App\Client\bin\Debug\netcoreapp3.1\Client.dll
 C:\Users\User\Desktop\Repos\Veterinary_App\Client\bin\Debug\netcoreapp3.1\Client.pdb
+C:\Users\User\Desktop\Repos\Veterinary_App\Client\obj\Debug\netcoreapp3.1\Client.csprojAssemblyReference.cache
 C:\Users\User\Desktop\Repos\Veterinary_App\Client\obj\Debug\netcoreapp3.1\Client.AssemblyInfoInputs.cache
 C:\Users\User\Desktop\Repos\Veterinary_App\Client\obj\Debug\netcoreapp3.1\Client.AssemblyInfo.cs
 C:\Users\User\Desktop\Repos\Veterinary_App\Client\obj\Debug\netcoreapp3.1\Client.csproj.CoreCompileInputs.cache
 C:\Users\User\Desktop\Repos\Veterinary_App\Client\obj\Debug\netcoreapp3.1\Client.dll
 C:\Users\User\Desktop\Repos\Veterinary_App\Client\obj\Debug\netcoreapp3.1\Client.pdb
 C:\Users\User\Desktop\Repos\Veterinary_App\Client\obj\Debug\netcoreapp3.1\Client.genruntimeconfig.cache
-C:\Users\User\Desktop\Repos\Veterinary_App\Client\obj\Debug\netcoreapp3.1\Client.Form1.resources
-C:\Users\User\Desktop\Repos\Veterinary_App\Client\obj\Debug\netcoreapp3.1\Client.csproj.GenerateResource.cache
-C:\Users\User\Desktop\Repos\Veterinary_App\Client\obj\Debug\netcoreapp3.1\Client.csprojAssemblyReference.cache

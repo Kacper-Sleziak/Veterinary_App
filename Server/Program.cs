@@ -10,7 +10,7 @@ namespace Server
     class Program
     {
         public static Transactions _repository = new Transactions();
-        public static PersonalDataCrud _personalData = new PersonalDataCrud();
+        public static PersonalDataCrud _personalData = new PersonalDataCrud;
         public static AnimalsCrud _animals = new AnimalsCrud();
         public static PersonalDataCrud _products = new PersonalDataCrud();
 
@@ -141,23 +141,19 @@ namespace Server
 
                         else if (function[0] == "Register")
                         {
-                            if (function.Length == 9)
+                            if (result.Length == 8)
                             {
                                 result = _repository.Register(function[1], function[2], function[3], function[4],
                                  DateTime.Parse(function[5]), function[6], Int32.Parse(function[7])).ToString();
                             }
 
-                            else if (function.Length == 10)
+                            else if (result.Length == 9)
                             {
                                 result = _repository.Register(function[1], function[2], function[3], function[4],
                                     DateTime.Parse(function[5]), function[6], Int32.Parse(function[7]), function[8]).ToString();
                             }
 
                             
-                        }
-                        else if (function[0] == "getPersonalData")
-                        {
-                            result = _personalData.GetPersonalData(Int32.Parse(function[1]));
                         }
 
                         else if (function[0] == "AddNewVisit")
