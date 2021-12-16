@@ -10,6 +10,7 @@ namespace Server
     class Program
     {
         public static Transactions _repository = new Transactions();
+        public static PersonalDataCrud _personalData = new PersonalDataCrud;
         public static AnimalsCrud _animals = new AnimalsCrud();
         public static PersonalDataCrud _products = new PersonalDataCrud();
 
@@ -136,8 +137,41 @@ namespace Server
                         if (function[0] == "Login")
                         {
                             result = _repository.Login(function[1], function[2]).ToString();
-                            result += "<EOF>";
                         }
+
+                        else if (function[0] == "Register")
+                        {
+                            if (result.Length == 8)
+                            {
+                                result = _repository.Register(function[1], function[2], function[3], function[4],
+                                 DateTime.Parse(function[5]), function[6], Int32.Parse(function[7])).ToString();
+                            }
+
+                            else if (result.Length == 9)
+                            {
+                                result = _repository.Register(function[1], function[2], function[3], function[4],
+                                    DateTime.Parse(function[5]), function[6], Int32.Parse(function[7]), function[8]).ToString();
+                            }
+
+                            
+                        }
+
+                        else if (function[0] == "AddNewVisit")
+                        {
+                            result = _repository.addNewVisit(Int32.Parse(function[1]), Int32.Parse(function[2]), Int32.Parse(function[3]), Int32.Parse(function[4])).ToString();
+                        }
+
+                        else if (function[0] == "CancelVisit")
+                        {
+                            result = _repository.CancelVisit(Int32.Parse(function[1])).ToString();             
+                        }
+
+                        else if (function[0] == "GetPersonalData")
+                        {
+                            result = _personalData.GetPersonalData(Int32.Parse(function[1])).ToString();
+                        }
+
+                        result += "<EOF>";
 
                         ////////////////////////////////////////
 
