@@ -66,6 +66,32 @@ namespace Server.Database
             }
         }
 
+        public string GetAllVets()
+        {
+            using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
+            {
+                _connection.Open();
+                string getEmployeesQuery = "SELECT PersonalData.FirstName, PersonalData.LastName " +
+                                           "FROM PersonalData " +
+                                           "JOIN Employees ON Employees.PersonalDataId = PersonalData.Id " +
+                                           "WHERE Employees.JobName = 'Weterynarz';";
+                SqlDataAdapter adapter = new SqlDataAdapter(getEmployeesQuery, _connection);
+                DataTable table = new DataTable();
+                try
+                {
+                    adapter.Fill(table);
+                    string temp = JsonConvert.SerializeObject(table);
+                    return temp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+                    return "";
+                }
+            }
+        }
+
         /// <summary>
         /// A method that allows to update employee
         /// </summary>
