@@ -71,7 +71,7 @@ namespace Server.Database
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
                 _connection.Open();
-                string getEmployeesQuery = "SELECT PersonalData.FirstName, PersonalData.LastName " +
+                string getEmployeesQuery = "SELECT Employees.Id PersonalData.FirstName, PersonalData.LastName " +
                                            "FROM PersonalData " +
                                            "JOIN Employees ON Employees.PersonalDataId = PersonalData.Id " +
                                            "WHERE Employees.JobName = 'Weterynarz';";
