@@ -1,0 +1,7 @@
+C:\Users\User\Desktop\Repos\Veterinary_App\TEST\bin\Debug\TEST.exe.config
+C:\Users\User\Desktop\Repos\Veterinary_App\TEST\bin\Debug\TEST.exe
+C:\Users\User\Desktop\Repos\Veterinary_App\TEST\bin\Debug\TEST.pdb
+C:\Users\User\Desktop\Repos\Veterinary_App\TEST\obj\Debug\TEST.csprojAssemblyReference.cache
+C:\Users\User\Desktop\Repos\Veterinary_App\TEST\obj\Debug\TEST.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Repos\Veterinary_App\TEST\obj\Debug\TEST.exe
+C:\Users\User\Desktop\Repos\Veterinary_App\TEST\obj\Debug\TEST.pdb

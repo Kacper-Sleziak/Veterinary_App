@@ -51,11 +51,10 @@ namespace Server.Database
                 SqlTransaction transaction = _connection.BeginTransaction("RegisterTransaction");
                 try
                 {
-                    _connection.Open();
                     // Insert personal data
                     string queryInsertPersonalData =
                         "INSERT INTO PersonalData " +
-                        $"VALUES ('{firstName}', '{lastName}', '{birthday.ToString("yyyy-MM-dd")}', {phone}, '{email}');";
+                        $"VALUES ('{firstName}', '{lastName}', '{birthday.ToString("yyyy-MM-dd")}', {phone}, '{email}', 0);";
                     command = new SqlCommand(queryInsertPersonalData, _connection);
                     command.Transaction = transaction;
                     command.ExecuteNonQuery();
@@ -240,6 +239,7 @@ namespace Server.Database
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
+                _connection.Open();
                 string isEmployeeQuery = "SELECT COUNT(*) " +
                                          "FROM Employees " +
                                          $"WHERE PersonalDataId = {personalDataId};";
@@ -260,6 +260,7 @@ namespace Server.Database
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
+                _connection.Open();
                 string getVisitDuration = "SELECT Duration " +
                                           "FROM VisitTypes " +
                                           $"WHERE Id = {visitTypeId};";
@@ -337,6 +338,7 @@ namespace Server.Database
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
+                _connection.Open();
                 string getVisitDuration = "SELECT vt.Duration " +
                                           "FROM VisitTypes vt " +
                                           "JOIN Visits v ON v.Id " +
@@ -408,6 +410,7 @@ namespace Server.Database
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
+                _connection.Open();
                 string createOrderQuery = "INSERT INTO Orders " +
                                           $"VALUES {ownerId}, {date}, '{city}', {zipCode}, '{street}, '{delivery}', '{apartment}', '{status}';";
 

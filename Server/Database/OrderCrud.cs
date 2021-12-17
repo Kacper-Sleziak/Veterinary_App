@@ -35,7 +35,7 @@ namespace Server.Database
             }
         }
 
-        public bool UpdateOrder(int id, int ownerId, DateTime date, string city, int zipCode, string street, string delivery, int apartmentNumber,  string status )
+        public bool UpdateOrder(int id, int ownerId, DateTime date, string city, int zipCode, string street, string delivery, string apartmentNumber,  string status )
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {

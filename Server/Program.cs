@@ -1,5 +1,7 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -15,9 +17,11 @@ namespace Server
         public static PersonalDataCrud _personalData = new PersonalDataCrud();
         public static CredentialsCrud _credentials = new CredentialsCrud();
         public static AnimalsCrud _animals = new AnimalsCrud();
-        public static PersonalDataCrud _products = new PersonalDataCrud();
-        public static FreeTermsCrud _FreeTerms = new FreeTermsCrud();
-        public static VisitsCrud _Visits = new VisitsCrud();
+        public static ProductsCrud _products = new ProductsCrud();
+        public static FreeTermsCrud _freeTerms = new FreeTermsCrud();
+        public static VisitsCrud _visits = new VisitsCrud();
+        public static OrderCrud _orders = new OrderCrud();
+        public static VisitTypesCrud _visitTypes = new VisitTypesCrud();
 
         // State object for reading client data asynchronously  
         public class StateObject
@@ -191,13 +195,68 @@ namespace Server
                                 result = _animals.GetAnimalsOfOwner(int.Parse(function[1]));
                                 break;
                             case "GetVisitsOfAnimal":
-                                result = _Visits.GetAnimalVisits(int.Parse(function[1])).ToString();
+                                result = _visits.GetAnimalVisits(int.Parse(function[1])).ToString();
                                 break;
                             case "GetVetVisits":
-                                result = _Visits.GetVetVisits(int.Parse(function[1])).ToString();
+                                result = _visits.GetVetVisits(int.Parse(function[1])).ToString();
                                 break;
                             case "GetFreeTerms":
-                                result = _FreeTerms.GetFreeTerms(int.Parse(function[1]));
+                                result = _freeTerms.GetFreeTerms(int.Parse(function[1]));
+                                break;
+                            case "GetProducts":
+                                result = _products.GetAllProducts();
+                                break;
+                            case "RefreshFreeTerms":
+                            {
+                                _repository.ReloadFreeTerms();
+                                result = "";
+                                break;
+                            }
+                            case "IsEmployee":
+                                result = _repository.IsEmployee(int.Parse(function[1])).ToString();
+                                break;
+                            case "GetOrdersOfClient":
+                                result = _orders.GetOrdersOfClient(int.Parse(function[1]));
+                                break;
+                            case "GetVisitTypes":
+                                result = _visitTypes.GetAllVisitTypes();
+                                break;
+                            case "GetOwnerVisits":
+                                result = _visits.GetOwnerVisits(int.Parse(function[1]));
+                                break;
+                            case "AddAnimal":
+                                result = _animals.AddNewAnimal(function[1], function[2],
+                                    float.Parse(function[3]), int.Parse(function[4])).ToString();
+                                break;
+                            case "DeleteAnimal":
+                                result = _animals.DeleteAnimal(int.Parse(function[1])).ToString();
+                                break;
+                            case "UpdatePersonalData":
+                                result = _personalData.UpdatePersonalData(int.Parse(function[1]), function[2],
+                                    function[3], DateTime.Parse(function[4]), int.Parse(function[5]), function[6]).ToString();
+                                break;
+                            case "AddFreeTerm":
+                                result = _freeTerms.AddFreeTerm(DateTime.Parse(function[1]), int.Parse(function[2])).ToString();
+                                break;
+                            case "AddVisitType":
+                                result = _visitTypes.AddVisitType(function[1], int.Parse(function[2]),
+                                    float.Parse(function[3])).ToString();
+                                break;
+                            case "AddProduct":
+                                result = _products.AddProduct(function[1], function[2], int.Parse(function[3]))
+                                    .ToString();
+                                break;
+                            case "UpdateProduct":
+                                result = _products.UpdateProduct(int.Parse(function[1]), function[2], function[3],
+                                    int.Parse(function[4])).ToString();
+                                break;
+                            case "GetAllOrders":
+                                result = _orders.GetAllOrders();
+                                break;
+                            case "UpdateOrder":
+                                result = _orders.UpdateOrder(int.Parse(function[1]), int.Parse(function[2]),
+                                    DateTime.Parse(function[3]), function[4], int.Parse(function[5]), function[6],
+                                    function[7], function[8], function[9]).ToString();
                                 break;
                         }
                     }
