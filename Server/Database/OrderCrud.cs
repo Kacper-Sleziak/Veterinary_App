@@ -34,5 +34,58 @@ namespace Server.Database
                 }
             }
         }
+
+        public bool UpdateOrder(int id, int ownerId, DateTime date, string city, int zipCode, string street, string delivery, int apartmentNumber,  string status )
+        {
+            using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
+            {
+                _connection.Open();
+                string updateOrderQuery = "UPDATE OrderedProducts " +
+                                                   $"SET Owner =  {ownerId}, " +
+                                                   $"Date = {date} " +
+                                                   $"City= '{city}' " +
+                                                   $"Street = '{street}' " +
+                                                   $"Delivery = '{delivery}' " +
+                                                   $"ApartmentNumber = {apartmentNumber} " +
+                                                   $"Status = '{status}' " +
+                                                   $"WHERE Id = {id};";
+                SqlCommand command = new SqlCommand(updateOrderQuery, _connection);
+                try
+                {
+                    command.ExecuteNonQuery();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+                    return false;
+                }
+            }
+        }
+
+        public string GetAllOrders()
+        {
+            using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
+            {
+                _connection.Open();
+                string getOrdersQuery = "SELECT * " +
+                                           "FROM Orders;";
+                SqlDataAdapter adapter = new SqlDataAdapter(getOrdersQuery, _connection);
+                DataTable table = new DataTable();
+                try
+                {
+                    adapter.Fill(table);
+                    string temp = JsonConvert.SerializeObject(table);
+                    return temp;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+                    return "";
+                }
+            }
+        }
     }
 }
