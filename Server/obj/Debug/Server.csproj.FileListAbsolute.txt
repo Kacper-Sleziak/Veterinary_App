@@ -9,3 +9,6 @@ C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\obj\Debug\Server.csproj.G
 C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
 C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\obj\Debug\Server.exe
 C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\obj\Debug\Server.pdb
+C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\obj\Debug\Server.csproj.CopyComplete
+C:\Users\Kacper\Documents\GitHub\Veterinary_App\Server\obj\Debug\Server.csproj.SuggestedBindingRedirects.cache

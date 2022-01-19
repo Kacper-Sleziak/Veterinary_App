@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Desktop\\Repos\\Veterinary_App\\Client\\Client.csproj": {}
+    "C:\\Users\\Kacper\\Documents\\GitHub\\Veterinary_App\\Client\\Client.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Desktop\\Repos\\Veterinary_App\\Client\\Client.csproj": {
+    "C:\\Users\\Kacper\\Documents\\GitHub\\Veterinary_App\\Client\\Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\Repos\\Veterinary_App\\Client\\Client.csproj",
+        "projectUniqueName": "C:\\Users\\Kacper\\Documents\\GitHub\\Veterinary_App\\Client\\Client.csproj",
         "projectName": "Client",
-        "projectPath": "C:\\Users\\User\\Desktop\\Repos\\Veterinary_App\\Client\\Client.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\Repos\\Veterinary_App\\Client\\obj\\",
+        "projectPath": "C:\\Users\\Kacper\\Documents\\GitHub\\Veterinary_App\\Client\\Client.csproj",
+        "packagesPath": "C:\\Users\\Kacper\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Kacper\\Documents\\GitHub\\Veterinary_App\\Client\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Kacper\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -57,7 +61,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.210\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
