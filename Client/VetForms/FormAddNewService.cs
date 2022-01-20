@@ -10,9 +10,54 @@ namespace Client.VetForms
 {
     public partial class FormAddNewService : Form
     {
+        private readonly Repository _repository = new Repository();
         public FormAddNewService()
         {
             InitializeComponent();
+        }
+
+        private void textBoxPrice_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxVisitType_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxDuration_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonAddVisitType_Click(object sender, EventArgs e)
+        {
+            if(int.Parse(textBoxDuration.Text)%15 ==0)
+            {
+                string duration = textBoxDuration.Text;
+                string price = textBoxPrice.Text;
+                string visitType = textBoxVisitType.Text;
+
+                var addVisitQuery = $"AddVisitType({visitType},{duration},{price})<EOF>";
+                var returnedString = _repository.StartClient(addVisitQuery);
+
+                if (returnedString.Split('<')[0] == "True")
+                {
+                    MessageBox.Show("Dodano Typ wizyty!");
+                }
+
+                else
+                {
+                    MessageBox.Show("Wystapil blad przy dodawaniu");
+                }
+            }
+
+
+            else
+            {
+                MessageBox.Show("Dlugosc wizyty musi byc wielokrotnoscia 15-minutowego bloku czasu!");
+            }
         }
     }
 }
