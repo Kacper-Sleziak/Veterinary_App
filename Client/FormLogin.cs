@@ -41,6 +41,12 @@ namespace Client
                     break;
                 default:
                     MessageBox.Show($"Zalogowano! Numer danych osobowych to {returnedString.Substring(0, returnedString.Length - 5)}!");
+                    
+                    // open menu form
+                    var form = new FormMenu();
+                    form.Show();
+                    form.Activate();
+                    this.Hide();
                     break;
             }
         }
