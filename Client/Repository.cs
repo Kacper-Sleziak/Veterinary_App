@@ -1,42 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.VisualBasic;
 
 namespace Client
 {
-    public partial class Form1 : Form
+    class Repository
     {
-        public Form1()
+        public string GetHash(HashAlgorithm hashAlgorithm, string input)
         {
-            InitializeComponent();
+            // Convert the input string to a byte array and compute the hash.
+            byte[] data = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
+
+            // Create a new Stringbuilder to collect the bytes
+            // and create a string.
+            var sBuilder = new StringBuilder();
+
+            // Loop through each byte of the hashed data
+            // and format each one as a hexadecimal string.
+            for (int i = 0; i < data.Length; i++)
+            {
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+
+            // Return the hexadecimal string.
+            return sBuilder.ToString();
         }
 
         public string StartClient(string message)
         {
             // Data buffer for incoming data.  
-            byte[] bytes = new byte[1024];
+            var bytes = new byte[1024];
 
             // Connect to a remote device.  
             try
             {
                 // Establish the remote endpoint for the socket.  
                 // This example uses port 11000 on the local computer.  
-                IPHostEntry ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
-                IPAddress ipAddress = ipHostInfo.AddressList[0];
-                IPEndPoint remoteEP = new IPEndPoint(ipAddress, 11000);
+                var ipHostInfo = Dns.GetHostEntry(Dns.GetHostName());
+                var ipAddress = ipHostInfo.AddressList[0];
+                var remoteEP = new IPEndPoint(ipAddress, 11000);
 
                 // Create a TCP/IP  socket.  
-                Socket sender = new Socket(ipAddress.AddressFamily,
+                var sender = new Socket(ipAddress.AddressFamily,
                     SocketType.Stream, ProtocolType.Tcp);
 
                 // Connect the socket to the remote endpoint. Catch any errors.  
@@ -48,14 +55,14 @@ namespace Client
                         sender.RemoteEndPoint.ToString());
 
                     // Encode the data string into a byte array. 
-                    byte[] msg = Encoding.ASCII.GetBytes(message);
+                    var msg = Encoding.ASCII.GetBytes(message);
 
                     // Send the data through the socket.  
-                    int bytesSent = sender.Send(msg);
+                    var bytesSent = sender.Send(msg);
 
                     // Receive the response from the remote device.  
-                    int bytesRec = sender.Receive(bytes);
-                    Console.WriteLine("Echoed test = {0}", 
+                    var bytesRec = sender.Receive(bytes);
+                    Console.WriteLine("Echoed test = {0}",
                         Encoding.ASCII.GetString(bytes, 0, bytesRec));
 
                     // Release the socket.  
@@ -84,40 +91,6 @@ namespace Client
             }
 
             return null;
-        }
-        
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonLogin_Click(object sender, EventArgs e)
-        {
-            string login = textBoxLogin.Text;
-            string password = textBoxPassword.Text;
-            string msg_string = "Login(";
-
-
-            //string "Login(login, password)<EOF>"
-            msg_string += login;
-            msg_string += ", ";
-            msg_string += password;
-            msg_string += ")<EOF>";
-
-            var returnedString = StartClient(msg_string);
-            textBox1.Text = returnedString;
-
-        }
-
-        private void textBoxPassword_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxLogin_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

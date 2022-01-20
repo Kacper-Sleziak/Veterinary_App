@@ -1,7 +1,7 @@
 ﻿
 namespace Client
 {
-    partial class Form1
+    partial class FormLogin
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,26 +29,19 @@ namespace Client
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.textBoxLogin = new System.Windows.Forms.TextBox();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.labelLogin = new System.Windows.Forms.Label();
+            this.labelPassword = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(14, 16);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(114, 29);
-            this.textBox1.TabIndex = 0;
             // 
             // buttonLogin
             // 
-            this.buttonLogin.Location = new System.Drawing.Point(405, 205);
+            this.buttonLogin.Location = new System.Drawing.Point(12, 121);
+            this.buttonLogin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(124, 43);
+            this.buttonLogin.Size = new System.Drawing.Size(108, 32);
             this.buttonLogin.TabIndex = 1;
             this.buttonLogin.Text = "Zaloguj";
             this.buttonLogin.UseVisualStyleBackColor = true;
@@ -56,44 +49,61 @@ namespace Client
             // 
             // textBoxLogin
             // 
-            this.textBoxLogin.Location = new System.Drawing.Point(402, 105);
+            this.textBoxLogin.Location = new System.Drawing.Point(12, 38);
+            this.textBoxLogin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxLogin.Name = "textBoxLogin";
-            this.textBoxLogin.Size = new System.Drawing.Size(127, 27);
+            this.textBoxLogin.Size = new System.Drawing.Size(112, 23);
             this.textBoxLogin.TabIndex = 2;
-            this.textBoxLogin.TextChanged += new System.EventHandler(this.textBoxLogin_TextChanged);
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(402, 154);
+            this.textBoxPassword.Location = new System.Drawing.Point(12, 94);
+            this.textBoxPassword.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPassword.Name = "textBoxPassword";
-            this.textBoxPassword.Size = new System.Drawing.Size(127, 27);
+            this.textBoxPassword.Size = new System.Drawing.Size(112, 23);
             this.textBoxPassword.TabIndex = 3;
-            this.textBoxPassword.TextChanged += new System.EventHandler(this.textBoxPassword_TextChanged);
             // 
-            // Form1
+            // labelLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.labelLogin.AutoSize = true;
+            this.labelLogin.Location = new System.Drawing.Point(14, 17);
+            this.labelLogin.Name = "labelLogin";
+            this.labelLogin.Size = new System.Drawing.Size(37, 15);
+            this.labelLogin.TabIndex = 4;
+            this.labelLogin.Text = "Login";
+            // 
+            // labelPassword
+            // 
+            this.labelPassword.AutoSize = true;
+            this.labelPassword.Location = new System.Drawing.Point(12, 77);
+            this.labelPassword.Name = "labelPassword";
+            this.labelPassword.Size = new System.Drawing.Size(37, 15);
+            this.labelPassword.TabIndex = 5;
+            this.labelPassword.Text = "Hasło";
+            // 
+            // FormLogin
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(914, 600);
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelPassword);
+            this.Controls.Add(this.labelLogin);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxLogin);
             this.Controls.Add(this.buttonLogin);
-            this.Controls.Add(this.textBox1);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Name = "FormLogin";
+            this.Text = "VetAPP";
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        public System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button buttonLogin;
         private System.Windows.Forms.TextBox textBoxLogin;
         private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.Label labelLogin;
+        private System.Windows.Forms.Label labelPassword;
     }
 }
 
