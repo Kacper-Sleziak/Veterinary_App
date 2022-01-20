@@ -10,8 +10,10 @@ namespace Client
 {
     public partial class FormUserMain : Form
     {
-        public FormUserMain()
+        int _ownerId;
+        public FormUserMain(int ownerId)
         {
+            _ownerId = ownerId;
             InitializeComponent();
         }
 
@@ -28,6 +30,14 @@ namespace Client
             Hide();
             var formShowVisits = new UsersForms.FormShowVisits();
             formShowVisits.ShowDialog();
+            Show();
+        }
+
+        private void buttonAddAnimal_Click(object sender, EventArgs e)
+        {
+            Hide();
+            var formAddPet = new UsersForms.FormAddPet(_ownerId);
+            formAddPet.ShowDialog();
             Show();
         }
     }
