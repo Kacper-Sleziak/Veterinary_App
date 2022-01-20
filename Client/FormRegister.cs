@@ -62,6 +62,7 @@ namespace Client
                         break;
                     default:
                         MessageBox.Show("Zarejestrowano!");
+                        Close();
                         break;
                 }
             }
@@ -76,15 +77,11 @@ namespace Client
 
         private void textBoxPhone_TextChanged(object sender, EventArgs e)
         {
-            var validated = false;
-            if (textBoxPhone.Text.Length != 9) return;
-            validated = textBoxPhone.Text.Count(c => c < '0' || c > '9') == 0;
-            
-            if (!validated)
-            {
-                textBoxPhone.Clear();
-                MessageBox.Show("Podaj poprawny numer telefonu!");
-            }
+            var validated = textBoxPhone.Text.Count(c => c < '0' || c > '9') == 0;
+            if (textBoxPhone.Text.Length > 9) validated = false;
+            if (validated) return;
+            textBoxPhone.Clear();
+            MessageBox.Show("Podaj poprawny numer telefonu!");
         }
     }
 }
