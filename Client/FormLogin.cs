@@ -66,7 +66,7 @@ namespace Client
                         case "weterynarz<EOF>":
                             MessageBox.Show("Zalogowano jako weterynarz!");
                             Hide();
-                            var formVet = new FormVetMain();
+                            var formVet = new FormVetMain(1);
                             formVet.ShowDialog();
                             Show();
                             break;
