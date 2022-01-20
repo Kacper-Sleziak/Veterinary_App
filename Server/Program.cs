@@ -265,6 +265,9 @@ namespace Server
                             case "DeleteEmployee":
                                 result = _employees.DeleteEmployee(int.Parse(function[1])).ToString();
                                 break;
+                            case "GetEmployee":
+                                result = _employees.GetEmployee(int.Parse(function[1])).ToString();
+                                break;
                         }
                     }
                     catch (Exception ex)

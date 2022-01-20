@@ -151,5 +151,19 @@ namespace Server.Database
                 }
             }
         }
+
+        public int GetEmployee(int PersonalDataId)
+        {
+            using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
+            {
+                _connection.Open();
+                string getEmployeeQuery = "SELECT Id " +
+                                           "FROM Employees " +
+                                           $"WHERE PersonalDataId='{PersonalDataId}';";
+                SqlCommand command = new SqlCommand(getEmployeeQuery, _connection);
+                int employeeId = (int)command.ExecuteScalar();
+                return employeeId;
+            }
+        }
     }
 }
