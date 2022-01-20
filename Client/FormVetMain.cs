@@ -10,15 +10,17 @@ namespace Client
 {
     public partial class FormVetMain : Form
     {
-        public FormVetMain()
+        private readonly int _vetId;
+        public FormVetMain(int vetId)
         {
+            _vetId = vetId;
             InitializeComponent();
         }
 
         private void buttonAddTerm_Click(object sender, EventArgs e)
         {
             Hide();
-            var formAddTerm = new VetForms.FormAddNewTerm();
+            var formAddTerm = new VetForms.FormAddNewTerm(_vetId);
             formAddTerm.ShowDialog();
             Show();
 

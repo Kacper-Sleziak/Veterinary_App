@@ -10,9 +10,21 @@ namespace Client.VetForms
 {
     public partial class FormAddNewTerm : Form
     {
-        public FormAddNewTerm()
+        private readonly int _vetId;
+        public FormAddNewTerm(int vetId)
         {
+            _vetId = vetId;
             InitializeComponent();
+        }
+
+        private void buttonAddTerm_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void monthCalendarPickTerm_DateChanged(object sender, DateRangeEventArgs e)
+        {
+
         }
     }
 }
