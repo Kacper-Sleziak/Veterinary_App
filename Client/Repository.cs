@@ -8,6 +8,27 @@ namespace Client
 {
     class Repository
     {
+        public bool ValidatePassword(string password)
+        {
+            var lowerLetter = false;
+            var upperLetter = false;
+            var number = false;
+            var special = false;
+            foreach (var c in password)
+            {
+                if (c >= 'a' && c <= 'z')
+                    lowerLetter = true;
+                else if (c >= 'A' && c <= 'Z')
+                    upperLetter = true;
+                else if (c >= '0' && c <= '9')
+                    number = true;
+                else
+                    special = true;
+            }
+
+            return lowerLetter && upperLetter && number && special && password.Length >= 8;
+        }
+
         public string GetHash(HashAlgorithm hashAlgorithm, string input)
         {
             // Convert the input string to a byte array and compute the hash.

@@ -47,8 +47,10 @@ namespace Server.Database
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
                 _connection.Open();
-                string getEmployeesQuery = "SELECT * " +
-                                          "FROM Employees;";
+                string getEmployeesQuery = "SELECT Employees.Id, Employees.JobName, PersonalData.FirstName, PersonalData.LastName, PersonalData.Email, PersonalData.Phone, PersonalData.Id " +
+                                           "FROM Employees " +
+                                           "JOIN PersonalData ON Employees.PersonalDataId = PersonalData.Id " +
+                                           "WHERE Employees.JobName <> 'wlasciciel';";
                 SqlDataAdapter adapter = new SqlDataAdapter(getEmployeesQuery, _connection);
                 DataTable table = new DataTable();
                 try
@@ -128,13 +130,13 @@ namespace Server.Database
         /// </summary>
         /// <param name="id"></param>
         /// <returns>true if deleted successfully, false else</returns>
-        public bool DeleteEmployee(int id)
+        public bool DeleteEmployee(int PersonalDataId)
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
                 _connection.Open();
-                string deleteEmployeeQuery = "DELETE Employees " +
-                                            $"Where Id = {id};";
+                string deleteEmployeeQuery = "DELETE PersonalData " +
+                                            $"Where Id = {PersonalDataId};";
                 SqlCommand command = new SqlCommand(deleteEmployeeQuery, _connection);
                 try
                 {

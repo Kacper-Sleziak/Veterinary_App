@@ -254,7 +254,7 @@ namespace Server.Database
                 string jobName = command.ExecuteScalar().ToString();
                 return jobName;
             }
-        }
+        }   
 
         public bool addNewVisit(int freeTermId, int visitTypeId, int animalId, int vetId)
         {

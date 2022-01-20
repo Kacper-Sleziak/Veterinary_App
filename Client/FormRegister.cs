@@ -18,26 +18,7 @@ namespace Client
         {
             InitializeComponent();
         }
-        static bool ValidatePassword(string password)
-        {
-            var lowerLetter = false;
-            var upperLetter = false;
-            var number = false;
-            var special = false;
-            foreach (var c in password)
-            {
-                if (c >= 'a' && c <= 'z')
-                    lowerLetter = true;
-                else if (c >= 'A' && c <= 'Z')
-                    upperLetter = true;
-                else if (c >= '0' && c <= '9')
-                    number = true;
-                else
-                    special = true;
-            }
-
-            return lowerLetter && upperLetter && number && special && password.Length >= 8;
-        }
+        
         private void buttonRegister_Click(object sender, EventArgs e)
         {
             var login = textBoxLogin.Text;
@@ -47,7 +28,7 @@ namespace Client
             var phone = textBoxPhone.Text;
             var email = textBoxMail.Text;
             var birthday = dateTimePickerBirthday.Text;
-            if (ValidatePassword(password))
+            if (_repository.ValidatePassword(password))
             {
                 var registerQuery = $"Register({_repository.GetHash(sha, login)},{_repository.GetHash(sha, password)},{firstName},{lastName},{birthday},{email},{phone})<EOF>";
                 var returnedString = _repository.StartClient(registerQuery);

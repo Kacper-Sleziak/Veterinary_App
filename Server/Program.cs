@@ -22,6 +22,7 @@ namespace Server
         public static VisitsCrud _visits = new VisitsCrud();
         public static OrderCrud _orders = new OrderCrud();
         public static VisitTypesCrud _visitTypes = new VisitTypesCrud();
+        public static EmployeesCrud _employees = new EmployeesCrud();
 
         // State object for reading client data asynchronously  
         public class StateObject
@@ -257,6 +258,12 @@ namespace Server
                                 result = _orders.UpdateOrder(int.Parse(function[1]), int.Parse(function[2]),
                                     DateTime.Parse(function[3]), function[4], int.Parse(function[5]), function[6],
                                     function[7], function[8], function[9]).ToString();
+                                break;
+                            case "GetAllEmployees":
+                                result = _employees.GetAllEmployees().ToString();
+                                break;
+                            case "DeleteEmployee":
+                                result = _employees.DeleteEmployee(int.Parse(function[1])).ToString();
                                 break;
                         }
                     }
