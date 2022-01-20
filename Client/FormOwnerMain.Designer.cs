@@ -147,6 +147,7 @@ namespace Client
             this.textBoxPhone.Name = "textBoxPhone";
             this.textBoxPhone.Size = new System.Drawing.Size(112, 23);
             this.textBoxPhone.TabIndex = 27;
+            this.textBoxPhone.TextChanged += new System.EventHandler(this.textBoxPhone_TextChanged);
             // 
             // textBoxFirstName
             // 

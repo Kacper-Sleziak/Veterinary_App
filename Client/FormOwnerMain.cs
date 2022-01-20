@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -82,14 +83,22 @@ namespace Client
                 textBoxPassword.Clear();
             }
         }
-
+        private void textBoxPhone_TextChanged(object sender, EventArgs e)
+        {
+            var validated = textBoxPhone.Text.Count(c => c < '0' || c > '9') == 0;
+            if (textBoxPhone.Text.Length > 9) validated = false;
+            if (validated) return;
+            textBoxPhone.Clear();
+            MessageBox.Show("Podaj poprawny numer telefonu!");
+        }
         private void reloadEmployees()
         {
             var employees =
                 (DataTable)JsonConvert.DeserializeObject(
                     _repository.StartClient("GetAllEmployees()<EOF>").Split('<')[0], (typeof(DataTable)));
             dataGridViewAllEmployees.DataSource = employees;
-            dataGridViewAllEmployees.Columns["Id1"].Visible = false;
+            if(employees.Columns.Count != 0)
+                dataGridViewAllEmployees.Columns["Id1"].Visible = false;
         }
     }
 }

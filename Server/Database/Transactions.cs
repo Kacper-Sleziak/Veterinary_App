@@ -144,7 +144,7 @@ namespace Server.Database
                     // Insert personal data
                     string queryInsertPersonalData =
                         "INSERT INTO PersonalData " +
-                        $"VALUES ('{firstName}', '{lastName}', '{birthday.ToString("yyyy-MM-dd")}', {phone}, '{email}');";
+                        $"VALUES ('{firstName}', '{lastName}', '{birthday.ToString("yyyy-MM-dd")}', {phone}, '{email}', 0);";
                     command = new SqlCommand(queryInsertPersonalData, _connection);
                     command.Transaction = transaction;
                     command.ExecuteNonQuery();
