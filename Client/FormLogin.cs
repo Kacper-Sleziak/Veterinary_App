@@ -39,14 +39,55 @@ namespace Client
                 case "-1<EOF>":
                     MessageBox.Show("Błędny login lub hasło, spróbuj ponownie!");
                     break;
+                case "Error<EOF>":
+                    MessageBox.Show("Wystąpił nieoczekiwany błąd, proszę spróbować ponownie!");
+                    break;
                 default:
                     MessageBox.Show($"Zalogowano! Numer danych osobowych to {returnedString.Substring(0, returnedString.Length - 5)}!");
-                    
-                    // open menu form
-                    var form = new FormMenu();
-                    form.Show();
-                    form.Activate();
-                    this.Hide();
+                    var isEmployeeQuery = $"IsEmployee({returnedString.Substring(0, returnedString.Length - 5)})<EOF>";
+                    returnedString = _repository.StartClient(isEmployeeQuery);
+                    textBoxLogin.Clear();
+                    textBoxPassword.Clear();
+                    switch (returnedString)
+                    {
+                        case null:
+                            MessageBox.Show("Wystąpił nieoczekiwany błąd, proszę spróbować ponownie!");
+                            break;
+                        case "Error<EOF>":
+                            MessageBox.Show("Wystąpił nieoczekiwany błąd, proszę spróbować ponownie!");
+                            break;
+                        case "uzytkownik<EOF>":
+                            MessageBox.Show("Zalogowano jako użytkownik!");
+                            Hide();
+                            var formUser = new FormUserMain();
+                            formUser.ShowDialog();
+                            Show();
+                            break;
+                        case "weterynarz<EOF>":
+                            MessageBox.Show("Zalogowano jako weterynarz!");
+                            Hide();
+                            var formVet = new FormVetMain();
+                            formVet.ShowDialog();
+                            Show();
+                            break;
+                        case "aptekarz<EOF>":
+                            MessageBox.Show("Zalogowano jako aptekarz!");
+                            Hide();
+                            var formPharma = new FormPharmacyMain();
+                            formPharma.ShowDialog();
+                            Show();
+                            break;
+                        case "wlasciciel<EOF>":
+                            MessageBox.Show("Zalogowano jako właściciel!");
+                            Hide();
+                            var formOwner = new FormOwnerMain();
+                            formOwner.ShowDialog();
+                            Show();
+                            break;
+                        default:
+                            MessageBox.Show("Wystąpił nieoczekiwany błąd, proszę spróbować ponownie!");
+                            break;
+                    }
                     break;
             }
         }

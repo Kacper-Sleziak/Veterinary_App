@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    public partial class FormMenu : Form
+    public partial class FormVetMain : Form
     {
-        public FormMenu()
+        public FormVetMain()
         {
             InitializeComponent();
         }

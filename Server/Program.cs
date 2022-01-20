@@ -264,7 +264,7 @@ namespace Server
                     {
                         Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
                         Console.WriteLine("  Message: {0}", ex.Message);
-                        result = $"Commit Exception Type: {ex.GetType()} Message: {ex.Message}";
+                        result = $"Error";
                     }
 
                     result += "<EOF>";

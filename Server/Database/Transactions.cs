@@ -246,7 +246,7 @@ namespace Server.Database
                 SqlCommand command = new SqlCommand(isEmployeeQuery, _connection);
                 int foundEmployee = (int) command.ExecuteScalar();
                 if (foundEmployee < 1)
-                    return "użytkownik";
+                    return "uzytkownik";
                 isEmployeeQuery = "SELECT JobName " +
                                   "FROM Employees " +
                                   $"WHERE PersonalDataId='{personalDataId}';";
