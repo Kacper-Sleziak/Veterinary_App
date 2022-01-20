@@ -14,5 +14,30 @@ namespace Client
         {
             InitializeComponent();
         }
+
+        private void buttonAddTerm_Click(object sender, EventArgs e)
+        {
+            Hide();
+            var formAddTerm = new VetForms.FormAddNewTerm();
+            formAddTerm.ShowDialog();
+            Show();
+
+        }
+
+        private void buttonShowVisits_Click(object sender, EventArgs e)
+        {
+            Hide();
+            var formShowVisits = new VetForms.FormShowVisits();
+            formShowVisits.ShowDialog();
+            Show();
+        }
+
+        private void buttonAddNewService_Click(object sender, EventArgs e)
+        {
+            Hide();
+            var formAddNewService = new VetForms.FormAddNewService();
+            formAddNewService.ShowDialog();
+            Show();
+        }
     }
 }
