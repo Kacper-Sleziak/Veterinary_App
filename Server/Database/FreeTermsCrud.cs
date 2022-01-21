@@ -15,11 +15,14 @@ namespace Server.Database
             {
                 //Default status = 0, false in sql
                 int status = 0;
-                
                 _connection.Open();
+
+                
                 string queryInsertFreeTerm = "INSERT INTO FreeTerms " +
-                                                $"VALUES ({date:yyyy-MM-dd-hh-mm-ss}, {employeeId}, {status});";
+                                            $"VALUES ('{date:yyyy-MM-dd HH:mm:00}', {employeeId}, {status});";
+                
                 SqlCommand command = new SqlCommand(queryInsertFreeTerm, _connection);
+                
                 try
                 {
                     command.ExecuteNonQuery();

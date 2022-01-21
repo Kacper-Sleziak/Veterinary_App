@@ -31,6 +31,7 @@ namespace Client
         {
             this.buttonAddVisit = new System.Windows.Forms.Button();
             this.buttonShowVisits = new System.Windows.Forms.Button();
+            this.buttonAddAnimal = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonAddVisit
@@ -53,11 +54,22 @@ namespace Client
             this.buttonShowVisits.UseVisualStyleBackColor = true;
             this.buttonShowVisits.Click += new System.EventHandler(this.buttonShowVisits_Click);
             // 
+            // buttonAddAnimal
+            // 
+            this.buttonAddAnimal.Location = new System.Drawing.Point(299, 158);
+            this.buttonAddAnimal.Name = "buttonAddAnimal";
+            this.buttonAddAnimal.Size = new System.Drawing.Size(181, 43);
+            this.buttonAddAnimal.TabIndex = 2;
+            this.buttonAddAnimal.Text = "Dodaj Zwierze";
+            this.buttonAddAnimal.UseVisualStyleBackColor = true;
+            this.buttonAddAnimal.Click += new System.EventHandler(this.buttonAddAnimal_Click);
+            // 
             // FormUserMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonAddAnimal);
             this.Controls.Add(this.buttonShowVisits);
             this.Controls.Add(this.buttonAddVisit);
             this.Name = "FormUserMain";
@@ -70,5 +82,6 @@ namespace Client
 
         private System.Windows.Forms.Button buttonAddVisit;
         private System.Windows.Forms.Button buttonShowVisits;
+        private System.Windows.Forms.Button buttonAddAnimal;
     }
 }

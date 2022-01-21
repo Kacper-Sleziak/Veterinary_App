@@ -29,7 +29,7 @@ namespace Client
         private void buttonShowVisits_Click(object sender, EventArgs e)
         {
             Hide();
-            var formShowVisits = new VetForms.FormShowVisits();
+            var formShowVisits = new VetForms.FormShowVisits(_vetId);
             formShowVisits.ShowDialog();
             Show();
         }

@@ -31,6 +31,8 @@ namespace Client
             var loginQuery = $"Login({_repository.GetHash(sha, login)},{_repository.GetHash(sha, password)})<EOF>";
 
             var returnedString = _repository.StartClient(loginQuery);
+            var personalDataId = returnedString.Split('<')[0];
+            
             switch (returnedString)
             {
                 case null:
@@ -59,14 +61,18 @@ namespace Client
                         case "uzytkownik<EOF>":
                             MessageBox.Show("Zalogowano jako użytkownik!");
                             Hide();
-                            var formUser = new FormUserMain();
+                            var formUser = new FormUserMain(int.Parse(personalDataId));
                             formUser.ShowDialog();
                             Show();
                             break;
                         case "weterynarz<EOF>":
                             MessageBox.Show("Zalogowano jako weterynarz!");
                             Hide();
-                            var formVet = new FormVetMain(1);
+                            
+                            var getEmployeeIdQuery = $"GetEmployee({personalDataId})<EOF>";
+                            var employeeId = _repository.StartClient(getEmployeeIdQuery).Split('<')[0];
+                            var formVet = new FormVetMain(int.Parse(employeeId));
+                            
                             formVet.ShowDialog();
                             Show();
                             break;
