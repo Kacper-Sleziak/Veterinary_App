@@ -177,9 +177,9 @@ namespace Server
                             {
                                 char[] listSeparator = {'[', ';', ']'};
                                 var ProductId =
-                                    function[9].Split(listSeparator).ToList().ConvertAll(input => int.Parse(input));
-                                var ProductAmount =
-                                    function[10].Split(listSeparator).ToList().ConvertAll(input => int.Parse(input));
+                                    function[9].Split(listSeparator).Skip(1).Take(function[9].Split(listSeparator).Length - 2).ToList().ConvertAll(input => int.Parse(input));
+                                    var ProductAmount =
+                                    function[10].Split(listSeparator).Skip(1).Take(function[10].Split(listSeparator).Length - 2).ToList().ConvertAll(input => int.Parse(input));
                                 result = _repository.Order(int.Parse(function[1]), DateTime.Parse(function[2]),
                                     function[3], int.Parse(function[4]), function[5],
                                     function[6], function[7], function[8], ProductId, ProductAmount).ToString();

@@ -266,7 +266,7 @@ namespace Server.Database
                                           $"WHERE Id = {visitTypeId};";
                 SqlCommand command = new SqlCommand(getVisitDuration, _connection);
                 int duration = (int)command.ExecuteScalar();
-                bool isFree = true;S
+                bool isFree = true;
                 for (int i = freeTermId; i < freeTermId + duration; i++)
                 {
                     string checkAvailability  = "SELECT Status " +
@@ -412,7 +412,7 @@ namespace Server.Database
             {
                 _connection.Open();
                 string createOrderQuery = "INSERT INTO Orders " +
-                                          $"VALUES {ownerId}, {date}, '{city}', {zipCode}, '{street}, '{delivery}', '{apartment}', '{status}';";
+                                          $"VALUES '{ownerId}', '{date:yyyy-MM-dd HH:mm:ss}', '{city}', '{zipCode}', '{street}', '{delivery}', '{apartment}', '{status}';";
 
 
                 SqlTransaction transaction = _connection.BeginTransaction("Order");
@@ -427,7 +427,7 @@ namespace Server.Database
 
                     string getOrderQuery = "SELECT OrderId " +
                                       "FROM Orders " +
-                                      $"WHERE OwnerId = {ownerId} and Date = {date:u};";
+                                      $"WHERE OwnerId = '{ownerId}' and Date = '{date:yyyy-MM-dd HH:mm:ss}';";
 
                     command = new SqlCommand(getOrderQuery, _connection);
                     command.Transaction = transaction;
@@ -437,7 +437,7 @@ namespace Server.Database
                     for (var i = 0; i < amountOfOrderedProducts; i++)
                     {
                         string createOrderedProductQuery = "INSERT Into OrderedProducts " +
-                                                           $"VALUES {productId[i]} {productAmount[i]} {orderId};";
+                                                           $"VALUES {productId[i]}, {productAmount[i]}, {orderId};";
                         
                         command = new SqlCommand(createOrderedProductQuery, _connection);
                         command.Transaction = transaction;

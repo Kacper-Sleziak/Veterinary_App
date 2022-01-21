@@ -44,7 +44,7 @@ namespace Client
         private void buttonShopping_Click(object sender, EventArgs e)
         {
             Hide();
-            var formShopping = new UsersForms.FormShopping();
+            var formShopping = new UsersForms.FormShopping(_ownerId);
             formShopping.ShowDialog();
             Show();
         }

@@ -34,6 +34,9 @@
     <Compile Update="UsersForms\FormAddVisit.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="UsersForms\FormBuy.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="UsersForms\FormShopping.cs">
       <SubType>Form</SubType>
     </Compile>
