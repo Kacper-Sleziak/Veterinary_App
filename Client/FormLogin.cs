@@ -65,6 +65,13 @@ namespace Client
                             formUser.ShowDialog();
                             Show();
                             break;
+                        case "u?ytkownik<EOF>":
+                            MessageBox.Show("Zalogowano jako użytkownik!");
+                            Hide();
+                            var formOfUser = new FormUserMain(int.Parse(personalDataId));
+                            formOfUser.ShowDialog();
+                            Show();
+                            break;
                         case "weterynarz<EOF>":
                             MessageBox.Show("Zalogowano jako weterynarz!");
                             Hide();
