@@ -22,6 +22,12 @@
     <Compile Update="FormVetMain.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="PharmacyForms\FormOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PharmacyForms\FormProducts.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="UsersForms\FormAddVisit.cs">
       <SubType>Form</SubType>
     </Compile>

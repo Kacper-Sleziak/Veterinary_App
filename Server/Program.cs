@@ -2,6 +2,7 @@
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -244,12 +245,12 @@ namespace Server
                                     float.Parse(function[3])).ToString();
                                 break;
                             case "AddProduct":
-                                result = _products.AddProduct(function[1], function[2], int.Parse(function[3]))
-                                    .ToString();
+                                result = _products.AddProduct(function[1], function[2], int.Parse(function[3]),
+                                    float.Parse(function[4], CultureInfo.InvariantCulture.NumberFormat)).ToString();
                                 break;
                             case "UpdateProduct":
                                 result = _products.UpdateProduct(int.Parse(function[1]), function[2], function[3],
-                                    int.Parse(function[4])).ToString();
+                                    int.Parse(function[4]), float.Parse(function[5], CultureInfo.InvariantCulture.NumberFormat)).ToString();
                                 break;
                             case "GetAllOrders":
                                 result = _orders.GetAllOrders();

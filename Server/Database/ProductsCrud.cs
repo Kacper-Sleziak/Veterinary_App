@@ -16,14 +16,15 @@ namespace Server.Database
         /// <param name="type"></param>
         /// <param name="name"></param>
         /// <param name="amount"></param>
+        /// <param name="price"></param>
         /// <returns>true if product added successfully, false else</returns>
-        public bool AddProduct(string type, string name, int amount)
+        public bool AddProduct(string type, string name, int amount, float price)
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
                 _connection.Open();
                 string addProductQuery = "INSERT INTO Products " +
-                                         $"VALUES ('{type}','{name}',{amount});";
+                                         $"VALUES ('{type}','{name}',{amount},'{price.ToString(System.Globalization.CultureInfo.InvariantCulture)}');";
                 SqlCommand command = new SqlCommand(addProductQuery, _connection);
                 try
                 {
@@ -74,8 +75,9 @@ namespace Server.Database
         /// <param name="type"></param>
         /// <param name="name"></param>
         /// <param name="amount"></param>
+        /// <param name="price"></param>
         /// <returns>true if updated successfully, false else</returns>
-        public bool UpdateProduct(int id, string type, string name, int amount)
+        public bool UpdateProduct(int id, string type, string name, int amount, float price)
         {
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
@@ -83,7 +85,8 @@ namespace Server.Database
                 string updateProductQuery = "UPDATE Products " +
                                             $"SET Type =  '{type}', " +
                                             $"Name = '{name}', " +
-                                            $"Amount = {amount} " +
+                                            $"Amount = {amount}, " +
+                                            $"Price = {price.ToString(System.Globalization.CultureInfo.InvariantCulture)} " +
                                             $"WHERE Id = {id};";
                 SqlCommand command = new SqlCommand(updateProductQuery, _connection);
                 try
