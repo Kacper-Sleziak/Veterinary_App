@@ -15,22 +15,6 @@ namespace Client.VetForms
         {
             InitializeComponent();
         }
-
-        private void textBoxPrice_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxVisitType_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxDuration_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonAddVisitType_Click(object sender, EventArgs e)
         {
             if(int.Parse(textBoxDuration.Text)%15 ==0)
@@ -38,7 +22,6 @@ namespace Client.VetForms
                 string duration = textBoxDuration.Text;
                 string price = textBoxPrice.Text;
                 string visitType = textBoxVisitType.Text;
-
                 var addVisitQuery = $"AddVisitType({visitType},{duration},{price})<EOF>";
                 var returnedString = _repository.StartClient(addVisitQuery);
 

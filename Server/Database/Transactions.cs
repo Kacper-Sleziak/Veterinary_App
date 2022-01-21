@@ -266,7 +266,7 @@ namespace Server.Database
                                           $"WHERE Id = {visitTypeId};";
                 SqlCommand command = new SqlCommand(getVisitDuration, _connection);
                 int duration = (int)command.ExecuteScalar();
-                bool isFree = true;
+                bool isFree = true;S
                 for (int i = freeTermId; i < freeTermId + duration; i++)
                 {
                     string checkAvailability  = "SELECT Status " +

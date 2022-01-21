@@ -246,7 +246,7 @@ namespace Server
                                 break;
                             case "AddProduct":
                                 result = _products.AddProduct(function[1], function[2], int.Parse(function[3]),
-                                    float.Parse(function[4], CultureInfo.InvariantCulture.NumberFormat)).ToString();
+                                    float.Parse(function[5], CultureInfo.InvariantCulture.NumberFormat)).ToString();
                                 break;
                             case "UpdateProduct":
                                 result = _products.UpdateProduct(int.Parse(function[1]), function[2], function[3],

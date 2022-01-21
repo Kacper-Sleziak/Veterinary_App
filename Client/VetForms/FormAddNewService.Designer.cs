@@ -43,7 +43,6 @@
             this.textBoxVisitType.Name = "textBoxVisitType";
             this.textBoxVisitType.Size = new System.Drawing.Size(191, 27);
             this.textBoxVisitType.TabIndex = 0;
-            this.textBoxVisitType.TextChanged += new System.EventHandler(this.textBoxVisitType_TextChanged);
             // 
             // textBoxPrice
             // 
@@ -51,7 +50,6 @@
             this.textBoxPrice.Name = "textBoxPrice";
             this.textBoxPrice.Size = new System.Drawing.Size(191, 27);
             this.textBoxPrice.TabIndex = 1;
-            this.textBoxPrice.TextChanged += new System.EventHandler(this.textBoxPrice_TextChanged);
             // 
             // textBoxDuration
             // 
@@ -59,7 +57,6 @@
             this.textBoxDuration.Name = "textBoxDuration";
             this.textBoxDuration.Size = new System.Drawing.Size(191, 27);
             this.textBoxDuration.TabIndex = 2;
-            this.textBoxDuration.TextChanged += new System.EventHandler(this.textBoxDuration_TextChanged);
             // 
             // label1
             // 
