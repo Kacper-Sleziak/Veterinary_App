@@ -20,54 +20,20 @@ namespace Client.VetForms
 
         private void buttonAddTerm_Click(object sender, EventArgs e)
         {
-            DateTime pickedData = dateTimePickerTimePick.Value;
-       
-            if (pickedData.Minute % 15 == 0 && (0 < DateTime.Compare(pickedData, DateTime.Now)))
+            var date = monthCalendarVisits.SelectionStart;
+            var compDate = date;
+            
+            date = date.AddHours(8);
+            
+            while(!date.Equals(compDate.AddHours(16)))
             {
-                var addTermQuery = $"AddFreeTerm({pickedData},{_vetId})<EOF>";
+                var addTermQuery = $"AddFreeTerm({date},{_vetId})<EOF>";
                 var returnedString = _repository.StartClient(addTermQuery);
-
-                if(returnedString.Split('<')[0] == "True")
-                {
-                    MessageBox.Show("Dodano Termin!");
-                }
-
-                else
-                {
-                    MessageBox.Show("Wystapil blad!");
-                }    
+                if (returnedString == "false<EOF>")
+                    MessageBox.Show("Wystąpił błąd!");
+                date = date.AddMinutes(15);
             }
-
-            else
-            {
-                MessageBox.Show("Nieprawidłowa data!");
-            }
-        }
-
-        private void monthCalendarPickTerm_DateChanged(object sender, DateRangeEventArgs e)
-        {
-
-        }
-
-        private void dateTimePickerTimePick_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dateTimePickerDatePick_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FormAddNewTerm_Load(object sender, EventArgs e)
-        {
-            dateTimePickerTimePick.Format = DateTimePickerFormat.Custom;
-            dateTimePickerTimePick.CustomFormat = "yyyy-MM-dd-HH-mm";
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
+            MessageBox.Show("Pomyślnie dodano wolne terminy!");
         }
     }
 }

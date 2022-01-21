@@ -34,7 +34,7 @@ namespace Client.PharmacyForms
         {
             var orders =
                 (DataTable)JsonConvert.DeserializeObject(
-                    _repository.StartClient("GetAllEmployees()<EOF>").Split('<')[0], (typeof(DataTable)));
+                    _repository.StartClient("GetAllOrders()<EOF>").Split('<')[0], (typeof(DataTable)));
             dataGridViewOrders.DataSource = orders;
             if (orders.Columns.Count != 0)
                 dataGridViewOrders.Columns["Id"].Visible = false;
