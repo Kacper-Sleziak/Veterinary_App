@@ -42,9 +42,7 @@ namespace Server.Database
             using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
             {
                 _connection.Open();
-                string getFreeTermQuery = "SELECT * " +
-                                             "FROM FreeTerms " +
-                                             $"WHERE EmployeeId = {VetId};";
+                string getFreeTermQuery = $"SELECT * FROM FreeTerms WHERE EmployeeId = {VetId}";
                 SqlDataAdapter adapter = new SqlDataAdapter(getFreeTermQuery, _connection);
                 DataTable table = new DataTable();
                 try
@@ -103,6 +101,30 @@ namespace Server.Database
                     Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
                     Console.WriteLine("  Message: {0}", ex.Message);
                     return false;
+                }
+            }
+        }
+
+        public int GetVetIdByFreeTerm(int freeTermId)
+        {
+            using (_connection = new SqlConnection(Properties.Resources.ConnectionString))
+            {
+                _connection.Open();
+                string getVetIdByFreeTermQuery = "SELECT EmployeeId from FreeTerms " +
+                                                 $"WHERE Id = {freeTermId}";
+
+                SqlCommand command = new SqlCommand(getVetIdByFreeTermQuery, _connection);
+                try
+                {
+                    int vetId = (int)command.ExecuteScalar();
+                    return vetId;
+                }
+
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+                    return 0;
                 }
             }
         }
