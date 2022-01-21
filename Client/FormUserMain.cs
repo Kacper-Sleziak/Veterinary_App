@@ -40,5 +40,13 @@ namespace Client
             formAddPet.ShowDialog();
             Show();
         }
+
+        private void buttonShopping_Click(object sender, EventArgs e)
+        {
+            Hide();
+            var formShopping = new UsersForms.FormShopping();
+            formShopping.ShowDialog();
+            Show();
+        }
     }
 }

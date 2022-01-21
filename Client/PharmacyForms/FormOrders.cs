@@ -39,5 +39,10 @@ namespace Client.PharmacyForms
             if (orders.Columns.Count != 0)
                 dataGridViewOrders.Columns["Id"].Visible = false;
         }
+
+        private void dataGridViewOrders_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
