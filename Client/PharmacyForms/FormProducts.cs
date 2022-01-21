@@ -72,5 +72,10 @@ namespace Client.PharmacyForms
             textBoxAmount.Text = dataGridViewProducts.SelectedRows[0].Cells[3].Value.ToString();
             textBoxPrice.Text = dataGridViewProducts.SelectedRows[0].Cells[4].Value.ToString();
         }
+
+        private void dataGridViewProducts_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

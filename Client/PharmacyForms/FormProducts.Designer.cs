@@ -47,91 +47,99 @@ namespace Client.PharmacyForms
             // dataGridViewProducts
             // 
             this.dataGridViewProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewProducts.Location = new System.Drawing.Point(12, 27);
+            this.dataGridViewProducts.Location = new System.Drawing.Point(14, 36);
+            this.dataGridViewProducts.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dataGridViewProducts.Name = "dataGridViewProducts";
+            this.dataGridViewProducts.RowHeadersWidth = 51;
             this.dataGridViewProducts.RowTemplate.Height = 25;
-            this.dataGridViewProducts.Size = new System.Drawing.Size(775, 181);
+            this.dataGridViewProducts.Size = new System.Drawing.Size(886, 241);
             this.dataGridViewProducts.TabIndex = 0;
+            this.dataGridViewProducts.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProducts_CellContentClick);
             this.dataGridViewProducts.SelectionChanged += new System.EventHandler(this.dataGridViewProducts_SelectionChanged);
             // 
             // labelProducts
             // 
             this.labelProducts.AutoSize = true;
-            this.labelProducts.Location = new System.Drawing.Point(12, 9);
+            this.labelProducts.Location = new System.Drawing.Point(14, 12);
             this.labelProducts.Name = "labelProducts";
-            this.labelProducts.Size = new System.Drawing.Size(55, 15);
+            this.labelProducts.Size = new System.Drawing.Size(67, 20);
             this.labelProducts.TabIndex = 1;
             this.labelProducts.Text = "Produkty";
             // 
             // textBoxType
             // 
-            this.textBoxType.Location = new System.Drawing.Point(12, 238);
+            this.textBoxType.Location = new System.Drawing.Point(14, 317);
+            this.textBoxType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxType.Name = "textBoxType";
-            this.textBoxType.Size = new System.Drawing.Size(100, 23);
+            this.textBoxType.Size = new System.Drawing.Size(114, 27);
             this.textBoxType.TabIndex = 2;
             // 
             // labelType
             // 
             this.labelType.AutoSize = true;
-            this.labelType.Location = new System.Drawing.Point(12, 220);
+            this.labelType.Location = new System.Drawing.Point(14, 293);
             this.labelType.Name = "labelType";
-            this.labelType.Size = new System.Drawing.Size(57, 15);
+            this.labelType.Size = new System.Drawing.Size(74, 20);
             this.labelType.TabIndex = 3;
             this.labelType.Text = "Kategoria";
             // 
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(12, 264);
+            this.labelName.Location = new System.Drawing.Point(14, 352);
             this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(42, 15);
+            this.labelName.Size = new System.Drawing.Size(54, 20);
             this.labelName.TabIndex = 5;
             this.labelName.Text = "Nazwa";
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(12, 282);
+            this.textBoxName.Location = new System.Drawing.Point(14, 376);
+            this.textBoxName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(100, 23);
+            this.textBoxName.Size = new System.Drawing.Size(114, 27);
             this.textBoxName.TabIndex = 4;
             // 
             // labelAmount
             // 
             this.labelAmount.AutoSize = true;
-            this.labelAmount.Location = new System.Drawing.Point(12, 308);
+            this.labelAmount.Location = new System.Drawing.Point(14, 411);
             this.labelAmount.Name = "labelAmount";
-            this.labelAmount.Size = new System.Drawing.Size(31, 15);
+            this.labelAmount.Size = new System.Drawing.Size(39, 20);
             this.labelAmount.TabIndex = 7;
             this.labelAmount.Text = "Ilość";
             // 
             // textBoxAmount
             // 
-            this.textBoxAmount.Location = new System.Drawing.Point(12, 326);
+            this.textBoxAmount.Location = new System.Drawing.Point(14, 435);
+            this.textBoxAmount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxAmount.Name = "textBoxAmount";
-            this.textBoxAmount.Size = new System.Drawing.Size(100, 23);
+            this.textBoxAmount.Size = new System.Drawing.Size(114, 27);
             this.textBoxAmount.TabIndex = 6;
             // 
             // labelPrice
             // 
             this.labelPrice.AutoSize = true;
-            this.labelPrice.Location = new System.Drawing.Point(12, 352);
+            this.labelPrice.Location = new System.Drawing.Point(14, 469);
             this.labelPrice.Name = "labelPrice";
-            this.labelPrice.Size = new System.Drawing.Size(34, 15);
+            this.labelPrice.Size = new System.Drawing.Size(42, 20);
             this.labelPrice.TabIndex = 9;
             this.labelPrice.Text = "Cena";
             // 
             // textBoxPrice
             // 
-            this.textBoxPrice.Location = new System.Drawing.Point(12, 370);
+            this.textBoxPrice.Location = new System.Drawing.Point(14, 493);
+            this.textBoxPrice.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxPrice.Name = "textBoxPrice";
-            this.textBoxPrice.Size = new System.Drawing.Size(100, 23);
+            this.textBoxPrice.Size = new System.Drawing.Size(114, 27);
             this.textBoxPrice.TabIndex = 8;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(12, 399);
+            this.buttonAdd.Location = new System.Drawing.Point(14, 532);
+            this.buttonAdd.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(100, 39);
+            this.buttonAdd.Size = new System.Drawing.Size(114, 52);
             this.buttonAdd.TabIndex = 10;
             this.buttonAdd.Text = "Dodaj nowy produkt";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -139,9 +147,10 @@ namespace Client.PharmacyForms
             // 
             // buttonUpdate
             // 
-            this.buttonUpdate.Location = new System.Drawing.Point(118, 399);
+            this.buttonUpdate.Location = new System.Drawing.Point(135, 532);
+            this.buttonUpdate.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(100, 39);
+            this.buttonUpdate.Size = new System.Drawing.Size(114, 52);
             this.buttonUpdate.TabIndex = 11;
             this.buttonUpdate.Text = "Edytuj wybrany produkt";
             this.buttonUpdate.UseVisualStyleBackColor = true;
@@ -149,9 +158,9 @@ namespace Client.PharmacyForms
             // 
             // FormProducts
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(914, 600);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.labelPrice);
@@ -164,6 +173,7 @@ namespace Client.PharmacyForms
             this.Controls.Add(this.textBoxType);
             this.Controls.Add(this.labelProducts);
             this.Controls.Add(this.dataGridViewProducts);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "FormProducts";
             this.Text = "FormProducts";
             this.Load += new System.EventHandler(this.FormProducts_Load);
