@@ -28,7 +28,7 @@ namespace Client
         private void buttonShowVisits_Click(object sender, EventArgs e)
         {
             Hide();
-            var formShowVisits = new UsersForms.FormShowVisits();
+            var formShowVisits = new UsersForms.FormShowVisits(_ownerId);
             formShowVisits.ShowDialog();
             Show();
         }

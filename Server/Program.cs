@@ -269,6 +269,12 @@ namespace Server
                             case "GetEmployee":
                                 result = _employees.GetEmployee(int.Parse(function[1])).ToString();
                                 break;
+                            case "GetVetIdByFreeTerm":
+                                result = _freeTerms.GetVetIdByFreeTerm(int.Parse(function[1])).ToString();
+                                break;
+                            case "GetVets":
+                                result = _employees.GetAllVets().ToString();
+                                break;
                         }
                     }
                     catch (Exception ex)

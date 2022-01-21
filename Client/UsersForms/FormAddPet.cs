@@ -36,21 +36,30 @@ namespace Client.UsersForms
 
         private void buttonAddPet_Click(object sender, EventArgs e)
         {
-            string petName = textBoxAnimalName.Text;
-            string petWeight = textBoxWeight.Text;
-            string petSpiece = textBoxSpiece.Text;
 
-            var addPetQuery = $"AddAnimal({petName},{petSpiece},{petWeight},{_ownerId})<EOF>";
-            var returnedString = _repository.StartClient(addPetQuery);
-
-            if (returnedString.Split('<')[0] == "True")
+            try
             {
-                MessageBox.Show("Dodano Zwierze!");
+                string petName = textBoxAnimalName.Text;
+                string petWeight = textBoxWeight.Text;
+                string petSpiece = textBoxSpiece.Text;
+
+                var addPetQuery = $"AddAnimal({petName},{petSpiece},{petWeight},{_ownerId})<EOF>";
+                var returnedString = _repository.StartClient(addPetQuery);
+
+                if (returnedString.Split('<')[0] == "True")
+                {
+                    MessageBox.Show("Dodano Zwierze!");
+                }
+
+                else
+                {
+                    MessageBox.Show("Wystapil blad w trakcie dodawania, sprawdz podane wartosci!");
+                }
             }
 
-            else
+            catch (Exception exception)
             {
-                MessageBox.Show("Wystapil blad w trakcie dodawania!");
+                MessageBox.Show("Podano nieprawidlowe wartosci!");
             }
         }
     }
